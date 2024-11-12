@@ -1,14 +1,13 @@
 {
   "name": "template-reactjs",
   "private": true,
-  "version": "0.0.7",
+  "version": "0.0.8",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "prepare": "husky"
+    "dev": "vite --host --port=80",
+    "build": "node ./config/pre-build.js --mode development",
+    "preview": "vite preview --host",
+    "start": "pnpm run dev"
   },
   "dependencies": {
     "@commitlint/cli": "^19.5.0",
