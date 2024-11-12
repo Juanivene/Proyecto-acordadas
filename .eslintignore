@@ -3,4 +3,3 @@ config/*
 dist/*
 index.html
 node_modules/*
-vite.config.js

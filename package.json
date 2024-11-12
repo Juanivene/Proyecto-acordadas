@@ -1,16 +1,16 @@
 {
   "name": "template-reactjs",
   "private": true,
-  "version": "0.0.17",
+  "version": "0.0.18",
   "type": "module",
   "scripts": {
     "build": "node ./config/pre-build.js --mode development",
     "dev": "vite --host --port=80",
     "eslint": "npx eslint . --fix",
     "eslint:check": "npx eslint .",
+    "lint": "node ./config/pre-build.js --ignore-build --fix",
     "lint:check": "pnpm eslint:check && pnpm prettier:check",
     "lint:fix": "pnpm eslint && pnpm prettier",
-    "lint": "node ./config/pre-build.js --ignore-build --fix",
     "prepare": "husky",
     "prettier": "prettier -w .",
     "prettier:check": "prettier -c .",
