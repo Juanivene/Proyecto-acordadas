@@ -1,0 +1,22 @@
+#  Prettier will follow rules specified in .gitignore if it exists 
+#  in the same directory from which it is run. You can also base 
+#  your .prettierignore on .eslintignore (if you have one).
+
+# Ignore generated files
+build/
+dist/
+
+# Ignore dependency files
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+
+# Ignore backup and cache files
+.cache/
+.DS_Store
+*.log
+
+# Others
+docker/
+
+# Temporary
