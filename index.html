@@ -1,13 +1,49 @@
 <!doctype html>
-<html lang="en">
+<!-- Impedir la traduccion -->
+<html lang="es" translate="no">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="Portal del SAE | Poder Judicial de Tucumán"
+    />
+    <!-- Oculta el botón de traduccion del navegador - Google Chrome -->
+    <meta name="google" content="notranslate" />
+    <link rel="icon" href="/assets/img/logos/logo-57.png" />
+    <link rel="stylesheet" href="/index.css" />
+    <link
+      rel="preconnect"
+      href="https://apiportaldelsae-okdlab.justucuman.gov.ar"
+    />
+    <link rel="apple-touch-icon" href="/assets/img/logos/logo-72.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Portal del SAE | Poder Judicial de Tucumán</title>
   </head>
   <body>
+    <noscript style="display: grid; min-height: 100svh">
+      <div style="place-self: center">
+        <div style="text-align: center">
+          <img
+            src="/assets/img/logos/logo-72.png"
+            alt="logo poder judicial de tucuman"
+          />
+        </div>
+        <h2 style="text-align: center">
+          Necesita habilitar JavaScript en su navegador para utilizar esta
+          aplicación. <br />
+          Por favor, visite
+          <a
+            href="https://support.google.com/adsense/answer/12654?hl=es-419#:~:text=Activar%20JavaScript%20en%20Google%20Chrome&text=Haga%20clic%20en%20Configuraci%C3%B3n%20de,Los%20sitios%20pueden%20usar%20JavaScript."
+            target="_blank"
+            >este</a
+          >
+          enlace
+        </h2>
+      </div>
+    </noscript>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>
