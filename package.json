@@ -1,11 +1,14 @@
 {
   "name": "template-reactjs",
   "private": true,
-  "version": "0.0.9",
+  "version": "0.0.10",
   "type": "module",
   "scripts": {
-    "dev": "vite --host --port=80",
     "build": "node ./config/pre-build.js --mode development",
+    "dev": "vite --host --port=80",
+    "lint:check": "pnpm eslint:check && pnpm prettier:check",
+    "lint:fix": "pnpm eslint && pnpm prettier",
+    "lint": "node ./config/pre-build.js --ignore-build --fix",
     "prepare": "husky",
     "preview": "vite preview --host",
     "start": "pnpm run dev"
