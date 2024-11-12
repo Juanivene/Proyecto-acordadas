@@ -22,6 +22,11 @@ pnpm-lock.yaml
 /dist
 Dockerfile
 
+# environment
+.env.development
+.env.local.*
+.env.production
+.env.test
 
 node_modules
 dist

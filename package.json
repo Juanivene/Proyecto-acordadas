@@ -1,7 +1,7 @@
 {
   "name": "template-reactjs",
   "private": true,
-  "version": "0.0.13",
+  "version": "0.0.14",
   "type": "module",
   "scripts": {
     "build": "node ./config/pre-build.js --mode development",
