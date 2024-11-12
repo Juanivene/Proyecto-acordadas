@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Button } from '@mui/material';
+
 import './App.css';
 import reactLogo from './assets/react.svg';
 
@@ -21,6 +23,7 @@ const App = () => {
         <button onClick={() => setCount((el) => el + 1)} type="button">
           count is {count}
         </button>
+        <Button>MUI Button</Button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
