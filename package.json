@@ -1,7 +1,7 @@
 {
   "name": "template-reactjs",
   "private": true,
-  "version": "0.0.11",
+  "version": "0.0.12",
   "type": "module",
   "scripts": {
     "build": "node ./config/pre-build.js --mode development",
@@ -12,6 +12,8 @@
     "lint:fix": "pnpm eslint && pnpm prettier",
     "lint": "node ./config/pre-build.js --ignore-build --fix",
     "prepare": "husky",
+    "prettier": "prettier -w .",
+    "prettier:check": "prettier -c .",
     "preview": "vite preview --host",
     "start": "pnpm run dev"
   },
