@@ -1,7 +1,7 @@
 {
   "name": "template-reactjs",
   "private": true,
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -30,6 +30,12 @@
     "gradient-string": "^3.0.0",
     "husky": "^9.1.6",
     "vite": "^5.4.10"
+  },
+  "engines": {
+    "node": ">=20.6.1",
+    "npm": ">9.0.0",
+    "pnpm": ">9.0.0",
+    "yarn": "please-use-pnpm"
   },
   "lint-staged": {
     "*.{js,jsx}": [
