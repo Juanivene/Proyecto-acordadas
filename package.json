@@ -1,11 +1,12 @@
 {
   "name": "template-reactjs",
   "private": true,
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "scripts": {
     "dev": "vite --host --port=80",
     "build": "node ./config/pre-build.js --mode development",
+    "prepare": "husky",
     "preview": "vite preview --host",
     "start": "pnpm run dev"
   },
