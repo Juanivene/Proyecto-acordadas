@@ -1,11 +1,13 @@
 {
   "name": "template-reactjs",
   "private": true,
-  "version": "0.0.10",
+  "version": "0.0.11",
   "type": "module",
   "scripts": {
     "build": "node ./config/pre-build.js --mode development",
     "dev": "vite --host --port=80",
+    "eslint": "npx eslint . --fix",
+    "eslint:check": "npx eslint .",
     "lint:check": "pnpm eslint:check && pnpm prettier:check",
     "lint:fix": "pnpm eslint && pnpm prettier",
     "lint": "node ./config/pre-build.js --ignore-build --fix",
