@@ -13,7 +13,7 @@ const FormSearchFilter = () => (
       <Grid size={{ xs: 12, md: 4 }}>
         <TextField
           id="outlined-basic"
-          label="Outlined"
+          label="Número"
           variant="outlined"
           fullWidth
         />
@@ -21,23 +21,33 @@ const FormSearchFilter = () => (
       <Grid size={{ xs: 12, md: 4 }}>
         <TextField
           id="outlined-basic"
-          label="Outlined"
+          label="Fecha desde"
           variant="outlined"
+          type="date"
+          InputLabelProps={{
+            shrink: true,
+          }}
           fullWidth
         />
       </Grid>
       <Grid size={{ xs: 12, md: 4 }}>
         <TextField
           id="outlined-basic"
-          label="Outlined"
+          label="Fecha hasta"
           variant="outlined"
+          type="date"
+          slotProps={{
+            inputLabel: {
+              shrink: true,
+            },
+          }}
           fullWidth
         />
       </Grid>
       <Grid size={{ xs: 12, md: 8 }}>
         <TextField
           id="outlined-basic"
-          label="Outlined"
+          label="Texto"
           variant="outlined"
           fullWidth
         />
@@ -45,7 +55,7 @@ const FormSearchFilter = () => (
       <Grid size={{ xs: 12, md: 4 }}>
         <TextField
           id="outlined-basic"
-          label="Outlined"
+          label="Tipos"
           variant="outlined"
           fullWidth
         />
@@ -57,23 +67,49 @@ const FormSearchFilter = () => (
       spacing={2}
       sx={{ justifyContent: 'center', alignItems: 'center' }}
     >
-      <Grid size={{ xs: 4 }} display="flex" justifyContent="center">
+      <Grid size={{ xs: 6 }} display="flex" justifyContent="center">
         <Button
           variant="contained"
           disabled
           size="large"
-          sx={{ m: 1, borderRadius: 8, padding: '20px 96px' }}
+          sx={{
+            m: 1,
+            borderRadius: 8,
+            padding: {
+              xs: '16px 36px',
+              sm: '16px 48px',
+              md: '20px 96px',
+            },
+            fontSize: {
+              xs: '0.75rem',
+              sm: '0.875rem',
+              md: '1rem',
+            },
+          }}
           startIcon={<DeleteIcon />}
         >
           Limpiar
         </Button>
       </Grid>
-      <Grid size={{ xs: 4 }} display="flex" justifyContent="center">
+      <Grid size={{ xs: 6 }} display="flex" justifyContent="center">
         <Button
           variant="contained"
           disabled
           size="large"
-          sx={{ m: 1, borderRadius: 8, padding: '20px 96px' }}
+          sx={{
+            m: 1,
+            borderRadius: 8,
+            padding: {
+              xs: '16px 36px',
+              sm: '16px 48px',
+              md: '20px 96px',
+            },
+            fontSize: {
+              xs: '0.75rem',
+              sm: '0.875rem',
+              md: '1rem',
+            },
+          }}
           startIcon={<SearchIcon />}
         >
           Buscar
@@ -82,5 +118,4 @@ const FormSearchFilter = () => (
     </Grid>
   </form>
 );
-
 export default FormSearchFilter;
