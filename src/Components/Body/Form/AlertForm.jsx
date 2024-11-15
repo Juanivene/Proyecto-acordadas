@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 
 const AlertForm = (message) => {
-  if (!message) return null;
+  const { message: msg } = message;
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -13,11 +13,11 @@ const AlertForm = (message) => {
       toast.onmouseleave = Swal.resumeTimer;
     },
   });
+
   Toast.fire({
     icon: 'error',
-    title: message,
+    title: msg,
   });
-
   return null;
 };
 

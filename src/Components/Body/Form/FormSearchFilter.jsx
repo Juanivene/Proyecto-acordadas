@@ -12,7 +12,16 @@ const FormSearchFilter = () => {
     register,
     handleSubmit: onSubmitRHF,
     formState: { errors },
+    getValues,
   } = useForm();
+  const validateSelect = () => {
+    const { number, text, startDate, endDate, type } = getValues();
+
+    if (type && !number && !text && !startDate && !endDate) {
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = () => {};
   return (
@@ -31,8 +40,8 @@ const FormSearchFilter = () => {
             fullWidth
             {...register('number', {
               minLength: {
-                value: 1,
-                message: 'El campo debe contener al menos 1 numero',
+                value: 2,
+                message: 'El campo debe contener al menos 2 numeros',
               },
               maxLength: {
                 value: 23,
@@ -42,6 +51,9 @@ const FormSearchFilter = () => {
                 value: /^\d+$/,
                 message: 'Ingrese un  numero valido',
               },
+            })}
+            {...(errors.number && {
+              error: true,
             })}
           />
           {errors.number && <AlertForm message={errors.number.message} />}
@@ -53,13 +65,15 @@ const FormSearchFilter = () => {
             variant="outlined"
             type="date"
             slotProps={{
-              inputLabel: {
-                shrink: true,
-              },
+              inputLabel: { shrink: true },
             }}
             fullWidth
             {...register('startDate', {})}
+            {...(errors.startDate && {
+              error: true,
+            })}
           />
+          {/* <DatePicker /> */}
         </Grid>
         <Grid size={{ xs: 12, md: 4 }}>
           <TextField
@@ -74,6 +88,9 @@ const FormSearchFilter = () => {
             }}
             fullWidth
             {...register('endDate', {})}
+            {...(errors.endDate && {
+              error: true,
+            })}
           />
         </Grid>
         <Grid size={{ xs: 12, md: 8 }}>
@@ -82,6 +99,7 @@ const FormSearchFilter = () => {
             label="Texto"
             variant="outlined"
             fullWidth
+            ref={Text}
             {...register('text', {
               minLength: {
                 value: 3,
@@ -92,6 +110,9 @@ const FormSearchFilter = () => {
                 message: 'El texto debe tener entre 3 y 250 caracteres',
               },
             })}
+            {...(errors.text && {
+              error: true,
+            })}
           />
           {errors.text && <AlertForm message={errors.text.message} />}
         </Grid>
@@ -100,8 +121,24 @@ const FormSearchFilter = () => {
             disablePortal
             options={optionsSelect}
             fullWidth
-            renderInput={(params) => <TextField {...params} label="Tipos" />}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Tipos"
+                {...register('type', {
+                  validate: {
+                    luhn: () =>
+                      validateSelect() ||
+                      'Para buscar por tipo, debe ingresar también otro campo',
+                  },
+                })}
+                {...(errors.type && {
+                  error: true,
+                })}
+              />
+            )}
           />
+          {errors.type && <AlertForm message={errors.type.message} />}
         </Grid>
       </Grid>
       <Grid
@@ -138,7 +175,6 @@ const FormSearchFilter = () => {
           <Button
             type="submit"
             variant="contained"
-            // disabled
             size="large"
             sx={{
               m: 1,
