@@ -1,29 +1,69 @@
-import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import { Autocomplete, Button, Grid2 as Grid, TextField } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers';
+
+import dayjs from 'dayjs';
+import Swal from 'sweetalert2';
 
 import AlertForm from './AlertForm';
 import optionsSelect from './optionsSelectForm';
 
 const FormSearchFilter = () => {
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
+  useEffect(() => {
+    setSelectedStartDate(selectedStartDate);
+    setSelectedEndDate(selectedEndDate);
+  }, [selectedStartDate, selectedEndDate]);
   const {
     register,
     handleSubmit: onSubmitRHF,
     formState: { errors },
     getValues,
+    control,
   } = useForm();
+
   const validateSelect = () => {
     const { number, text, startDate, endDate, type } = getValues();
-
     if (type && !number && !text && !startDate && !endDate) {
       return false;
     }
     return true;
   };
+  const validateDate = () => {
+    const { startDate, endDate } = getValues();
+    if ((startDate && !endDate) || (!startDate && endDate)) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: 'error',
+        title:
+          'Para buscar por fecha debes completar ambos campos "fecha desde/hasta"',
+      });
+      return false;
+    }
+    return true;
+  };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (data) => {
+    if (!validateDate(data.startDate)) {
+      return false;
+    }
+    return true;
+  };
   return (
     <form onSubmit={onSubmitRHF(handleSubmit)}>
       <Grid
@@ -38,6 +78,7 @@ const FormSearchFilter = () => {
             label="Número"
             variant="outlined"
             fullWidth
+            // onChange={handleInputChange}
             {...register('number', {
               minLength: {
                 value: 2,
@@ -59,39 +100,82 @@ const FormSearchFilter = () => {
           {errors.number && <AlertForm message={errors.number.message} />}
         </Grid>
         <Grid size={{ xs: 12, md: 4 }}>
-          <TextField
-            id="outlined-basic"
-            label="Fecha desde"
-            variant="outlined"
-            type="date"
-            slotProps={{
-              inputLabel: { shrink: true },
-            }}
-            fullWidth
-            {...register('startDate', {})}
-            {...(errors.startDate && {
-              error: true,
-            })}
+          <Controller
+            name="startDate"
+            control={control}
+            defaultValue={null}
+            render={({ field: { onChange: onChangeRHF, value } }) => (
+              <DatePicker
+                sx={{ width: '100%' }}
+                label="Fecha desde"
+                value={value ? dayjs(value) : null}
+                onChange={(newValue) => {
+                  const formattedDate = newValue
+                    ? newValue.format('YYYY-MM-DD')
+                    : null;
+                  onChangeRHF(formattedDate);
+                  setSelectedStartDate('startDate', formattedDate);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    error={!!errors.endDate}
+                    helperText={errors.endDate ? errors.endDate.message : ''}
+                    fullWidth
+                    {...register('startDate', {
+                      validate: {
+                        l: () => validateDate() || 'Cmpleta el otro',
+                      },
+                    })}
+                    {...(errors.type && {
+                      error: true,
+                    })}
+                  />
+                )}
+                maxDate={dayjs()}
+              />
+            )}
           />
-          {/* <DatePicker /> */}
+          {errors.startDate && <AlertForm message={errors.text.message} />}
         </Grid>
         <Grid size={{ xs: 12, md: 4 }}>
-          <TextField
-            id="outlined-basic"
-            label="Fecha hasta"
-            variant="outlined"
-            type="date"
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-              },
-            }}
-            fullWidth
-            {...register('endDate', {})}
-            {...(errors.endDate && {
-              error: true,
-            })}
+          <Controller
+            name="endDate"
+            control={control}
+            defaultValue={null}
+            render={({ field: { onChange: onChangeRHF, value } }) => (
+              <DatePicker
+                sx={{ width: '100%' }}
+                label="Fecha hasta"
+                value={value ? dayjs(value) : null}
+                onChange={(newValue) => {
+                  const formattedDate = newValue
+                    ? newValue.format('YYYY-MM-DD')
+                    : null;
+                  onChangeRHF(formattedDate);
+                  setSelectedEndDate('endDate', formattedDate);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    error={!!errors.endDate}
+                    helperText={errors.endDate ? errors.endDate.message : ''}
+                    fullWidth
+                    {...register('endDate', {
+                      validate: {
+                        l: () => validateDate() || 'Completa el otro',
+                      },
+                    })}
+                    {...(errors.type && {
+                      error: true,
+                    })}
+                  />
+                )}
+                maxDate={dayjs()}
+              />
+            )}
           />
+          {errors.endDate && <AlertForm message={errors.text.message} />}
         </Grid>
         <Grid size={{ xs: 12, md: 8 }}>
           <TextField
@@ -99,7 +183,6 @@ const FormSearchFilter = () => {
             label="Texto"
             variant="outlined"
             fullWidth
-            ref={Text}
             {...register('text', {
               minLength: {
                 value: 3,
