@@ -16,8 +16,9 @@ export const getAgreementsFn = async (filters, i) => {
   if (type) params.append('type', `equals>${type}`);
   if (startDate && endDate) {
     params.append('init-date', `greaterOrEquals>${startDate}`);
-    params.append('final-date', `lessOrEquals>${endDate}`);
+    params.append('final-day', `lessOrEquals>${endDate}`);
   }
+
   const res = await fetch(
     `https://apiconsultaacordadas-desa.justucuman.gov.ar/agreements?${params}`
   );
@@ -27,7 +28,8 @@ export const getAgreementsFn = async (filters, i) => {
   }
   return data;
 };
-export const yella = () => {};
+export default getAgreementsFn;
+
 // todo te conviene mover la funcion a un slice donde se
 // todo ejecute la funcion para que dinamicamente se mueva
 // todo el index cuando se presione el boton de siguiente
