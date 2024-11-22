@@ -1,5 +1,15 @@
 export const getAgreementsFn = async (filters, i) => {
-  const { text, number, type, startDate, endDate } = filters;
+  const { text, number, startDate, endDate } = filters;
+  let { type } = filters;
+  if (type === 'ACORDADAS') {
+    type = 'A';
+  }
+  if (type === 'RESOLUCIONES') {
+    type = 'R';
+  }
+  if (type === 'RESOLUCIONES DE FERIAS') {
+    type = 'RF';
+  }
   const params = new URLSearchParams({ size: 10, index: i });
   if (text) params.append('text', `contains>${text}`);
   if (number) params.append('number', `equals>${number}`);
