@@ -34,11 +34,9 @@ const Body = () => {
             <FormSearchFilter />
           </LocalizationProvider>
         </Grid>
+        <Grid size={{ xs: 12 }}>{dataNow ? '' : <Alerts />}</Grid>
         <Grid size={{ xs: 12 }}>
-          <Alerts />
-        </Grid>
-        <Grid size={{ xs: 12 }}>
-          {(dataNow && dataNow.data.agreements.length) === 0 || error ? (
+          {(dataNow && dataNow.data.agreements.length === 0) || error ? (
             <AlertError />
           ) : (
             ''
