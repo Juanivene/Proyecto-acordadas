@@ -7,7 +7,7 @@ export const getAgreementsFn = async (filters, i) => {
   if (type === 'RESOLUCIONES') {
     type = 'R';
   }
-  if (type === 'RESOLUCIONES DE FERIAS') {
+  if (type === 'RESOLUCION DE FERIA') {
     type = 'RF';
   }
   const params = new URLSearchParams({ size: 10, index: i });

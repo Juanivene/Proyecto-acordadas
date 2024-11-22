@@ -1,7 +1,7 @@
 const optionsSelect = [
   { label: 'ACORDADAS' },
   { label: 'RESOLUCIONES' },
-  { label: 'RESOLUCIONES DE ACORDADAS' },
+  { label: 'RESOLUCION DE FERIA' },
 ];
 
 export default optionsSelect;
