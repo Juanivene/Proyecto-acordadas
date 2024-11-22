@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import { Autocomplete, Button, Grid2 as Grid, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
+
+import { fetchApi } from '../../../app/slice';
 
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
@@ -13,12 +15,6 @@ import AlertForm from './AlertForm';
 import optionsSelect from './optionsSelectForm';
 
 const FormSearchFilter = () => {
-  const [selectedStartDate, setSelectedStartDate] = useState(null);
-  const [selectedEndDate, setSelectedEndDate] = useState(null);
-  useEffect(() => {
-    setSelectedStartDate(selectedStartDate);
-    setSelectedEndDate(selectedEndDate);
-  }, [selectedStartDate, selectedEndDate]);
   const {
     register,
     handleSubmit: onSubmitRHF,
@@ -27,6 +23,8 @@ const FormSearchFilter = () => {
     control,
   } = useForm();
 
+  const dispatch = useDispatch();
+
   const validateSelect = () => {
     const { number, text, startDate, endDate, type } = getValues();
     if (type && !number && !text && !startDate && !endDate) {
@@ -34,6 +32,15 @@ const FormSearchFilter = () => {
     }
     return true;
   };
+
+  const validateFields = () => {
+    const { number, text, startDate, endDate, type } = getValues();
+    if (!type && !number && !text && !startDate && !endDate) {
+      return false;
+    }
+    return true;
+  };
+
   const validateDate = () => {
     const { startDate, endDate } = getValues();
     if ((startDate && !endDate) || (!startDate && endDate)) {
@@ -59,11 +66,13 @@ const FormSearchFilter = () => {
   };
 
   const handleSubmit = (data) => {
-    if (!validateDate(data.startDate)) {
+    if (!validateDate(data.startDate) || !validateFields()) {
       return false;
     }
+    dispatch(fetchApi({ filters: data, index: 0 }));
     return true;
   };
+
   return (
     <form onSubmit={onSubmitRHF(handleSubmit)}>
       <Grid
@@ -78,12 +87,8 @@ const FormSearchFilter = () => {
             label="Número"
             variant="outlined"
             fullWidth
-            // onChange={handleInputChange}
+            maxLength={23}
             {...register('number', {
-              minLength: {
-                value: 2,
-                message: 'El campo debe contener al menos 2 numeros',
-              },
               maxLength: {
                 value: 23,
                 message: 'El numero no debe superar los 23 caracteres',
@@ -114,7 +119,6 @@ const FormSearchFilter = () => {
                     ? newValue.format('YYYY-MM-DD')
                     : null;
                   onChangeRHF(formattedDate);
-                  setSelectedStartDate('startDate', formattedDate);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -136,7 +140,6 @@ const FormSearchFilter = () => {
               />
             )}
           />
-          {errors.startDate && <AlertForm message={errors.text.message} />}
         </Grid>
         <Grid size={{ xs: 12, md: 4 }}>
           <Controller
@@ -153,7 +156,6 @@ const FormSearchFilter = () => {
                     ? newValue.format('YYYY-MM-DD')
                     : null;
                   onChangeRHF(formattedDate);
-                  setSelectedEndDate('endDate', formattedDate);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -175,7 +177,6 @@ const FormSearchFilter = () => {
               />
             )}
           />
-          {errors.endDate && <AlertForm message={errors.text.message} />}
         </Grid>
         <Grid size={{ xs: 12, md: 8 }}>
           <TextField
