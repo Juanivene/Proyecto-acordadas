@@ -15,9 +15,6 @@ const Body = () => {
     (state) => state.getAgreementsFilters
   );
 
-  if (isLoading) {
-    return <Loader />;
-  }
   return (
     <Container>
       <Grid
@@ -37,6 +34,7 @@ const Body = () => {
         </Grid>
         <Grid size={{ xs: 12 }}>{dataNow ? '' : <Alerts />}</Grid>
         <Grid size={{ xs: 12 }}>
+          {isLoading && <Loader />}
           {(dataNow && dataNow.data.agreements.length === 0) || error ? (
             <AlertError />
           ) : (
