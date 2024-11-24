@@ -1,27 +1,30 @@
-const styles = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Oscurece el fondo
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 9999, // Asegura que esté por delante de todo
-  },
-  loader: {
-    color: '#fff',
-    fontSize: '24px',
-    fontWeight: 'bold',
-  },
-};
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 
 const Loader = () => (
-  <div style={styles.overlay}>
-    <div style={styles.loader}>Cargando...</div>
-  </div>
+  <Backdrop
+    sx={{
+      color: '#fff',
+      zIndex: (theme) => theme.zIndex.drawer + 1,
+      backdropFilter: 'blur(8px)', // Difumina el fondo
+      backgroundColor: 'rgba(0, 0, 0, 0.3)', // Transparente pero oscurece un poco
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 2,
+    }}
+    open
+  >
+    <Box display="flex" alignItems="center" flexDirection="column" gap={1}>
+      <HourglassBottomIcon sx={{ fontSize: 60, color: '#2196f3' }} />
+      <CircularProgress color="primary" />
+    </Box>
+    <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#fff' }}>
+      Cargando, por favor espera...
+    </Typography>
+  </Backdrop>
 );
 
 export default Loader;
