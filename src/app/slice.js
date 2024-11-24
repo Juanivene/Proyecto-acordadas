@@ -28,6 +28,7 @@ export const miSlice = createSlice({
     },
     setAgreementsFilters: (state, action) => {
       state.agreementsFilters = action.payload;
+      state.index = 0;
     },
     incrementIndex: (state) => {
       state.index += 1;
