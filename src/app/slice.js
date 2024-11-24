@@ -21,7 +21,11 @@ export const miSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    resetDataNow: (state) => {
+      state.dataNow = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchApi.pending, (state) => {
@@ -40,3 +44,4 @@ export const miSlice = createSlice({
 });
 
 export default miSlice.reducer;
+export const { resetDataNow } = miSlice.actions;

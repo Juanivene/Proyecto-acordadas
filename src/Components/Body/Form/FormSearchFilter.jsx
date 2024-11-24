@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
@@ -6,7 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Autocomplete, Button, Grid2 as Grid, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 
-import { fetchApi } from '../../../app/slice';
+import { fetchApi, resetDataNow } from '../../../app/slice';
 
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
@@ -21,7 +22,10 @@ const FormSearchFilter = () => {
     formState: { errors },
     getValues,
     control,
+    watch,
+    reset,
   } = useForm();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -33,13 +37,10 @@ const FormSearchFilter = () => {
     return true;
   };
 
-  const validateFields = () => {
+  const validateFields = useCallback(() => {
     const { number, text, startDate, endDate, type } = getValues();
-    if (!type && !number && !text && !startDate && !endDate) {
-      return false;
-    }
-    return true;
-  };
+    return !!(type || number || text || startDate || endDate); // Evalúa si al menos uno tiene valor
+  }, [getValues]);
 
   const validateDate = () => {
     const { startDate, endDate } = getValues();
@@ -64,6 +65,12 @@ const FormSearchFilter = () => {
     }
     return true;
   };
+  useEffect(() => {
+    const subscription = watch(() => {
+      setIsButtonDisabled(!validateFields());
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, validateFields]);
 
   const handleSubmit = (data) => {
     if (!validateDate(data.startDate) || !validateFields()) {
@@ -71,6 +78,12 @@ const FormSearchFilter = () => {
     }
     dispatch(fetchApi({ filters: data, index: 0 }));
     return true;
+  };
+
+  const cleanFilter = () => {
+    reset();
+    dispatch(resetDataNow());
+    setIsButtonDisabled(true);
   };
 
   return (
@@ -233,10 +246,12 @@ const FormSearchFilter = () => {
       >
         <Grid size={{ xs: 6 }} display="flex" justifyContent="center">
           <Button
+            onClick={cleanFilter}
             variant="contained"
-            disabled
+            disabled={isButtonDisabled}
             size="large"
             sx={{
+              backgroundColor: 'gray',
               m: 1,
               borderRadius: 8,
               padding: {
@@ -259,6 +274,7 @@ const FormSearchFilter = () => {
           <Button
             type="submit"
             variant="contained"
+            disabled={isButtonDisabled}
             size="large"
             sx={{
               m: 1,
