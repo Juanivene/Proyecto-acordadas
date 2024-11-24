@@ -52,7 +52,7 @@ const TableAgreements = () => {
     },
   }));
   const handleNext = () => {
-    if (agreements.length < 10) {
+    if (dataNow.data.max_page === index) {
       return;
     }
     dispatch(incrementIndex());
@@ -69,7 +69,7 @@ const TableAgreements = () => {
   return (
     <article>
       <Typography component="h2">
-        Acordada(s)/Resolucion(es) encontrada(s):
+        Acordada(s)/Resolucion(es) encontrada(s): <b>{dataNow.data.max_size}</b>
       </Typography>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
