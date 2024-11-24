@@ -14,9 +14,8 @@ import {
 } from '../../../app/slice';
 
 import dayjs from 'dayjs';
-import Swal from 'sweetalert2';
 
-import AlertForm from './AlertForm';
+import AlertForm, { Toast } from './AlertForm';
 import optionsSelect from './optionsSelectForm';
 
 const FormSearchFilter = () => {
@@ -47,25 +46,26 @@ const FormSearchFilter = () => {
   }, [getValues]);
 
   const validateDate = () => {
-    const { startDate, endDate } = getValues();
+    let { startDate, endDate } = getValues();
     if ((startDate && !endDate) || (!startDate && endDate)) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
-      });
       Toast.fire({
         icon: 'error',
         title:
           'Para buscar por fecha debes completar ambos campos "fecha desde/hasta"',
       });
       return false;
+    }
+    if (startDate) {
+      startDate = dayjs(startDate);
+      endDate = dayjs(endDate);
+
+      if (!endDate.isAfter(startDate)) {
+        Toast.fire({
+          icon: 'error',
+          title: 'Intervalo de fecha invalido',
+        });
+        return false;
+      }
     }
     return true;
   };
@@ -80,6 +80,10 @@ const FormSearchFilter = () => {
     if (!validateDate(data.startDate) || !validateFields()) {
       return false;
     }
+    if (data.startDate) {
+      data.startDate = dayjs(data.startDate).format('YYYY-DD-MM');
+      data.endDate = dayjs(data.endDate).format('YYYY-DD-MM');
+    }
     dispatch(fetchApi({ filters: data, index: 0 }));
     dispatch(setAgreementsFilters(data));
     return true;
@@ -90,7 +94,6 @@ const FormSearchFilter = () => {
     dispatch(resetDataNow());
     setIsButtonDisabled(true);
   };
-
   return (
     <form onSubmit={onSubmitRHF(handleSubmit)}>
       <Grid
@@ -134,23 +137,20 @@ const FormSearchFilter = () => {
                 value={value ? dayjs(value) : null}
                 onChange={(newValue) => {
                   const formattedDate = newValue
-                    ? newValue.format('YYYY-MM-DD')
+                    ? newValue.format('DD-MM-YYYY')
                     : null;
                   onChangeRHF(formattedDate);
                 }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    error={!!errors.endDate}
+                    error={!errors.endDate}
                     helperText={errors.endDate ? errors.endDate.message : ''}
                     fullWidth
                     {...register('startDate', {
                       validate: {
-                        l: () => validateDate() || 'Cmpleta el otro',
+                        l: () => validateDate() || 'Completa el otro',
                       },
-                    })}
-                    {...(errors.type && {
-                      error: true,
                     })}
                   />
                 )}
@@ -171,23 +171,20 @@ const FormSearchFilter = () => {
                 value={value ? dayjs(value) : null}
                 onChange={(newValue) => {
                   const formattedDate = newValue
-                    ? newValue.format('YYYY-MM-DD')
+                    ? newValue.format('DD-MM-YYYY')
                     : null;
                   onChangeRHF(formattedDate);
                 }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    error={!!errors.endDate}
+                    error={!errors.endDate}
                     helperText={errors.endDate ? errors.endDate.message : ''}
                     fullWidth
                     {...register('endDate', {
                       validate: {
                         l: () => validateDate() || 'Completa el otro',
                       },
-                    })}
-                    {...(errors.type && {
-                      error: true,
                     })}
                   />
                 )}

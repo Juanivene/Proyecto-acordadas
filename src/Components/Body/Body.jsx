@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { Container, Grid2 as Grid } from '@mui/material';
+import { Box, Container, Grid2 as Grid } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -8,6 +8,7 @@ import Loader from '../ui/Loader';
 import Alerts from './Alerts';
 import FormSearchFilter from './Form/FormSearchFilter';
 import AlertError from './Table/AlertError';
+import CardTable from './Table/CardTable';
 import TableAgreements from './Table/TableAgreements';
 
 const Body = () => {
@@ -41,10 +42,34 @@ const Body = () => {
             ''
           )}
           {dataNow && dataNow.data.agreements.length > 0 ? (
-            <TableAgreements />
+            <Box
+              sx={{
+                display: { xs: 'none', sm: 'none', md: 'block', lg: 'block' },
+              }}
+            >
+              <TableAgreements />
+            </Box>
           ) : (
             ''
           )}
+          {dataNow && dataNow.data.agreements.length > 0
+            ? dataNow.data.agreements.map((a) => (
+                <Box
+                  key={a.id}
+                  sx={{
+                    display: {
+                      xs: 'block',
+                      sm: 'block',
+                      md: 'none',
+                      lg: 'none',
+                    },
+                    margin: 1,
+                  }}
+                >
+                  <CardTable id={a.id} a={a} />
+                </Box>
+              ))
+            : null}
         </Grid>
       </Grid>
     </Container>

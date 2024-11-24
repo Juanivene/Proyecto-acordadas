@@ -84,7 +84,17 @@ const TableAgreements = () => {
           </TableHead>
           <TableBody>
             {agreements.map((a) => (
-              <StyledTableRow key={a.id} onClick={() => handleClick(a.id)}>
+              <StyledTableRow
+                key={a.id}
+                onClick={() => handleClick(a.id)}
+                sx={{
+                  cursor: 'pointer',
+                  transition: 'background-color 0.3s ease', // Transición suave para el color de fondo
+                  '&:hover': {
+                    backgroundColor: 'rgb(206, 200, 200)',
+                  },
+                }}
+              >
                 <StyledTableCell align="left">
                   {a.agreement_number}/{a.agreement_year}
                 </StyledTableCell>
