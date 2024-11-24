@@ -7,7 +7,7 @@ const Header = () => (
     rowSpacing={2}
     sx={{ justifyContent: 'center', alignItems: 'center' }}
   >
-    <Grid size={{ xs: 12, md: 6 }} display="flex" justifyContent="center">
+    <Grid size={{ sm: 12, md: 6 }} display="flex" justifyContent="center">
       <Box
         component="img"
         src="https://acordadas.justucuman.gov.ar/img/logos/logo-corte.png"
@@ -15,8 +15,8 @@ const Header = () => (
         sx={{ height: 72 }}
       />
     </Grid>
-    <Grid size={{ xs: 12, md: 6 }} display="flex" justifyContent="center">
-      <Typography variant="h1" sx={{ fontSize: '2rem' }}>
+    <Grid size={{ sm: 12, md: 6 }} display="flex" justifyContent="center">
+      <Typography variant="h1" sx={{ fontSize: '1.8rem' }}>
         Acordadas y Resoluciones
       </Typography>
     </Grid>
