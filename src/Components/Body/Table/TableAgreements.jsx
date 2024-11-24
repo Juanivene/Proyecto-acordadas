@@ -68,18 +68,64 @@ const TableAgreements = () => {
   };
   return (
     <article>
-      <Typography component="h2">
+      <Typography component="h2" variant="h6" sx={{ marginBottom: 2 }}>
         Acordada(s)/Resolucion(es) encontrada(s): <b>{dataNow.data.max_size}</b>
       </Typography>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
+          <TableHead sx={{ backgroundColor: '#6c757d' }}>
             <TableRow>
-              <StyledTableCell align="left">Número</StyledTableCell>
-              <StyledTableCell align="left">Fecha</StyledTableCell>
-              <StyledTableCell align="left">Descripción</StyledTableCell>
-              <StyledTableCell align="left">Tipo</StyledTableCell>
-              <StyledTableCell align="left">Acciones</StyledTableCell>
+              <StyledTableCell
+                align="left"
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  backgroundColor: '#6c757d',
+                }}
+              >
+                Número
+              </StyledTableCell>
+              <StyledTableCell
+                align="left"
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  backgroundColor: '#6c757d',
+                }}
+              >
+                Fecha
+              </StyledTableCell>
+              <StyledTableCell
+                align="left"
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  backgroundColor: '#6c757d',
+                }}
+              >
+                Descripción
+              </StyledTableCell>
+              <StyledTableCell
+                align="left"
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  backgroundColor: '#6c757d',
+                }}
+              >
+                Tipo
+              </StyledTableCell>
+              <StyledTableCell
+                align="left"
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  backgroundColor: '#6c757d',
+                }}
+              >
+                Acciones
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -89,9 +135,9 @@ const TableAgreements = () => {
                 onClick={() => handleClick(a.id)}
                 sx={{
                   cursor: 'pointer',
-                  transition: 'background-color 0.3s ease', // Transición suave para el color de fondo
+                  transition: 'background-color 0.3s ease',
                   '&:hover': {
-                    backgroundColor: 'rgb(206, 200, 200)',
+                    backgroundColor: 'rgb(156, 150, 150)', // Color al pasar el mouse
                   },
                 }}
               >
@@ -118,6 +164,7 @@ const TableAgreements = () => {
         </Table>
         {isOpen ? <CustomizedDialog /> : ''}
       </TableContainer>
+
       <Grid2
         container
         direction="row"
@@ -125,38 +172,37 @@ const TableAgreements = () => {
         sx={{
           justifyContent: 'space-between',
           alignItems: 'center',
+          marginTop: 2,
         }}
       >
-        <Grid2 size={{ sx: 6 }}>
+        <Grid2 item xs={6}>
           <Button
             onClick={handleBack}
             variant="outlined"
             sx={{
-              margin: 1,
-              height: '40px', // Ajusta la altura del botón
-              color: '#555555', // Color de texto gris oscuro
-              borderColor: '#555555', // Color del borde gris oscuro
+              height: '40px',
+              color: '#555',
+              borderColor: '#555',
               '&:hover': {
-                borderColor: '#555555', // Cambia el borde en el hover
-                backgroundColor: 'white', // Fondo transparente en hover
+                borderColor: '#555',
+                backgroundColor: '#f8f9fa',
               },
             }}
           >
             Anterior
           </Button>
         </Grid2>
-        <Grid2 size={{ sx: 6 }}>
+        <Grid2 item xs={6}>
           <Button
             onClick={handleNext}
             variant="outlined"
             sx={{
-              margin: 1,
-              height: '40px', // Ajusta la altura del botón
-              color: '#555555', // Color de texto gris oscuro
-              borderColor: '#555555', // Color del borde gris oscuro
+              height: '40px',
+              color: '#555',
+              borderColor: '#555',
               '&:hover': {
-                borderColor: '#555555', // Cambia el borde en el hover
-                backgroundColor: 'white', // Fondo transparente en hover
+                borderColor: '#555',
+                backgroundColor: '#f8f9fa',
               },
             }}
           >
