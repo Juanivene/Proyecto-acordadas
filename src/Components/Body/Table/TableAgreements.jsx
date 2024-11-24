@@ -137,7 +137,7 @@ const TableAgreements = () => {
                   cursor: 'pointer',
                   transition: 'background-color 0.3s ease',
                   '&:hover': {
-                    backgroundColor: 'rgb(156, 150, 150)', // Color al pasar el mouse
+                    backgroundColor: 'rgb(206, 204, 204)', // Color al pasar el mouse
                   },
                 }}
               >

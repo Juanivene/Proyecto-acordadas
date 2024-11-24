@@ -253,7 +253,7 @@ const FormSearchFilter = () => {
             disabled={isButtonDisabled}
             size="large"
             sx={{
-              backgroundColor: 'gray',
+              backgroundColor: 'rgb(158, 158, 158);',
               m: 1,
               borderRadius: 8,
               padding: {
@@ -279,6 +279,7 @@ const FormSearchFilter = () => {
             disabled={isButtonDisabled}
             size="large"
             sx={{
+              backgroundColor: 'rgb(63, 117, 168)',
               m: 1,
               borderRadius: 8,
               padding: {
