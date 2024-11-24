@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Visibility } from '@mui/icons-material';
-import { IconButton, Typography } from '@mui/material';
+import { Button, Grid2, IconButton, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -13,12 +13,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 import { openModal } from '../../../app/modalSlice';
+import { decrementIndex, fetchApi, incrementIndex } from '../../../app/slice';
 
 import CustomizedDialog from '../Modal/CustomizedDialogs';
 
 const TableAgreements = () => {
   const { isOpen } = useSelector((state) => state.modal);
-  const { dataNow } = useSelector((state) => state.getAgreementsFilters);
+  const { dataNow, agreementsFilters, index } = useSelector(
+    (state) => state.getAgreementsFilters
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleClick = (id) => {
@@ -48,11 +51,25 @@ const TableAgreements = () => {
       border: 0,
     },
   }));
+  const handleNext = () => {
+    if (agreements.length < 10) {
+      return;
+    }
+    dispatch(incrementIndex());
 
+    dispatch(fetchApi({ filters: agreementsFilters, index }));
+  };
+  const handleBack = () => {
+    if (index === 0) {
+      return;
+    }
+    dispatch(decrementIndex());
+    dispatch(fetchApi({ filters: agreementsFilters, index }));
+  };
   return (
     <article>
       <Typography component="h2">
-        Acordada(s)/Resolucion(es) encontrada(s): {agreements.length}
+        Acordada(s)/Resolucion(es) encontrada(s):
       </Typography>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -91,6 +108,52 @@ const TableAgreements = () => {
         </Table>
         {isOpen ? <CustomizedDialog /> : ''}
       </TableContainer>
+      <Grid2
+        container
+        direction="row"
+        spacing={2}
+        sx={{
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Grid2 size={{ sx: 6 }}>
+          <Button
+            onClick={handleBack}
+            variant="outlined"
+            sx={{
+              margin: 1,
+              height: '40px', // Ajusta la altura del botón
+              color: '#555555', // Color de texto gris oscuro
+              borderColor: '#555555', // Color del borde gris oscuro
+              '&:hover': {
+                borderColor: '#555555', // Cambia el borde en el hover
+                backgroundColor: 'white', // Fondo transparente en hover
+              },
+            }}
+          >
+            Anterior
+          </Button>
+        </Grid2>
+        <Grid2 size={{ sx: 6 }}>
+          <Button
+            onClick={handleNext}
+            variant="outlined"
+            sx={{
+              margin: 1,
+              height: '40px', // Ajusta la altura del botón
+              color: '#555555', // Color de texto gris oscuro
+              borderColor: '#555555', // Color del borde gris oscuro
+              '&:hover': {
+                borderColor: '#555555', // Cambia el borde en el hover
+                backgroundColor: 'white', // Fondo transparente en hover
+              },
+            }}
+          >
+            Siguiente
+          </Button>
+        </Grid2>
+      </Grid2>
     </article>
   );
 };

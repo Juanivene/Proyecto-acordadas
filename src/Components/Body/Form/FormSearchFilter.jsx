@@ -7,7 +7,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Autocomplete, Button, Grid2 as Grid, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 
-import { fetchApi, resetDataNow } from '../../../app/slice';
+import {
+  fetchApi,
+  resetDataNow,
+  setAgreementsFilters,
+} from '../../../app/slice';
 
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
@@ -77,6 +81,7 @@ const FormSearchFilter = () => {
       return false;
     }
     dispatch(fetchApi({ filters: data, index: 0 }));
+    dispatch(setAgreementsFilters(data));
     return true;
   };
 

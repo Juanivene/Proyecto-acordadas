@@ -20,10 +20,20 @@ export const miSlice = createSlice({
     dataNow: null,
     isLoading: false,
     error: null,
+    index: 0,
   },
   reducers: {
     resetDataNow: (state) => {
       state.dataNow = null;
+    },
+    setAgreementsFilters: (state, action) => {
+      state.agreementsFilters = action.payload;
+    },
+    incrementIndex: (state) => {
+      state.index += 1;
+    },
+    decrementIndex: (state) => {
+      state.index -= 1;
     },
   },
   extraReducers: (builder) => {
@@ -44,4 +54,9 @@ export const miSlice = createSlice({
 });
 
 export default miSlice.reducer;
-export const { resetDataNow } = miSlice.actions;
+export const {
+  resetDataNow,
+  setAgreementsFilters,
+  incrementIndex,
+  decrementIndex,
+} = miSlice.actions;
