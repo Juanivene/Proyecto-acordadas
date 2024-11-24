@@ -52,7 +52,7 @@ const TableAgreements = () => {
     },
   }));
   const handleNext = () => {
-    if (dataNow.data.max_page === index) {
+    if (dataNow.data.max_page === index + 1) {
       return;
     }
     dispatch(incrementIndex());
