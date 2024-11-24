@@ -14,8 +14,9 @@ const Body = () => {
   const { dataNow, isLoading, error } = useSelector(
     (state) => state.getAgreementsFilters
   );
+
   if (isLoading) {
-    <Loader />;
+    return <Loader />;
   }
   return (
     <Container>

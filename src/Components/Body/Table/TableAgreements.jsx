@@ -1,7 +1,8 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { Visibility } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -11,10 +12,22 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
+import { openModal } from '../../../app/modalSlice';
+
+import CustomizedDialog from '../Modal/CustomizedDialogs';
+
 const TableAgreements = () => {
+  const { isOpen } = useSelector((state) => state.modal);
   const { dataNow } = useSelector((state) => state.getAgreementsFilters);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleClick = (id) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set('acordada', id); // Asigna el valor del parámetro
+    navigate(`?${params.toString()}`); // Navega con los nuevos parámetros
+    dispatch(openModal());
+  };
   const { agreements } = dataNow.data;
-  const handleClick = () => {};
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -37,40 +50,48 @@ const TableAgreements = () => {
   }));
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="left">Número</StyledTableCell>
-            <StyledTableCell align="left">Fecha</StyledTableCell>
-            <StyledTableCell align="left">Descripción</StyledTableCell>
-            <StyledTableCell align="left">Tipo</StyledTableCell>
-            <StyledTableCell align="left">Acciones</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {agreements.map((a) => (
-            <StyledTableRow key={a.id} onClick={handleClick}>
-              <StyledTableCell align="left">
-                {a.agreement_number}/{a.agreement_year}
-              </StyledTableCell>
-              <StyledTableCell align="left">{a.agreement_date}</StyledTableCell>
-              <StyledTableCell align="left">
-                {a.agreement_description}
-              </StyledTableCell>
-              <StyledTableCell align="left">
-                {a.type_agreement.description}
-              </StyledTableCell>
-              <StyledTableCell align="left">
-                <IconButton aria-label="eye icon">
-                  <Visibility />
-                </IconButton>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <article>
+      <Typography component="h2">
+        Acordada(s)/Resolucion(es) encontrada(s): {agreements.length}
+      </Typography>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="left">Número</StyledTableCell>
+              <StyledTableCell align="left">Fecha</StyledTableCell>
+              <StyledTableCell align="left">Descripción</StyledTableCell>
+              <StyledTableCell align="left">Tipo</StyledTableCell>
+              <StyledTableCell align="left">Acciones</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {agreements.map((a) => (
+              <StyledTableRow key={a.id} onClick={() => handleClick(a.id)}>
+                <StyledTableCell align="left">
+                  {a.agreement_number}/{a.agreement_year}
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  {a.agreement_date}
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  {a.agreement_description}
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  {a.type_agreement.description}
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  <IconButton aria-label="eye icon">
+                    <Visibility />
+                  </IconButton>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+        {isOpen ? <CustomizedDialog /> : ''}
+      </TableContainer>
+    </article>
   );
 };
 export default TableAgreements;
