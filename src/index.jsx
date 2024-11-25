@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import store from './app/store';
 
-import './index.css';
 import AgreementView from './View/AgreementView';
 
 createRoot(document.getElementById('root')).render(
