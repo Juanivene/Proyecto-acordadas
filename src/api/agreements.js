@@ -1,3 +1,5 @@
+const apiAgreements = import.meta.env.VITE_API_AGREEMENTS;
+const apiAgreement = import.meta.env.VITE_API_AGREEMENT;
 export const getAgreementsFn = async (filters, i) => {
   const { text, number, startDate, endDate } = filters;
   let { type } = filters;
@@ -19,9 +21,7 @@ export const getAgreementsFn = async (filters, i) => {
     params.append('final-day', `lessOrEquals>${endDate}`);
   }
 
-  const res = await fetch(
-    `https://apiconsultaacordadas-desa.justucuman.gov.ar/agreements?${params}`
-  );
+  const res = await fetch(`${apiAgreements}${params}`);
   const data = await res.json();
   if (!res.ok) {
     throw new Error('ocurrio un problma al obtener los datos bro');
@@ -35,9 +35,7 @@ export const getAgreementsFn = async (filters, i) => {
 // que le mande el index como 0 por defecto y cada vez que
 // presione el boton se sume 1
 export const getAgreementFn = async (id) => {
-  const res = await fetch(
-    `https://apiconsultaacordadas-desa.justucuman.gov.ar/agreements/${id}`
-  );
+  const res = await fetch(`${apiAgreement}${id}`);
   const data = await res.json();
   if (!res.ok) {
     throw new Error('ocurrio un problma al obtener los datos bro');
