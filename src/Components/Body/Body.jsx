@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, Button, Container, Grid2 as Grid, Grid2 } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 import { decrementIndex, fetchApi, incrementIndex } from '../../app/slice';
 
@@ -10,6 +8,7 @@ import Loader from '../ui/Loader';
 import Alerts from './Alerts';
 import FormSearchFilter from './Form/FormSearchFilter';
 import AlertError from './Table/AlertError';
+import AlertNoAgreements from './Table/AlertNoAgreements';
 import CardTable from './Table/CardTable';
 import TableAgreements from './Table/TableAgreements';
 
@@ -48,15 +47,20 @@ const Body = () => {
         }}
       >
         <Grid size={{ xs: 12 }}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <FormSearchFilter />
-          </LocalizationProvider>
+          <FormSearchFilter />
         </Grid>
-        <Grid size={{ xs: 12 }}>{dataNow ? '' : <Alerts />}</Grid>
+        <Grid size={{ xs: 12 }}>
+          {dataNow || error || dataNow.data.agreements.length === 0 ? (
+            ''
+          ) : (
+            <Alerts />
+          )}
+        </Grid>
         <Grid size={{ xs: 12 }}>
           {isLoading && <Loader />}
-          {(dataNow && dataNow.data.agreements.length === 0) || error ? (
-            <AlertError />
+          {error ? <AlertError /> : ''}
+          {dataNow && dataNow.data.agreements.length === 0 ? (
+            <AlertNoAgreements />
           ) : (
             ''
           )}

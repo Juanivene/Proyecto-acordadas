@@ -1,4 +1,6 @@
 import { Box } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 import Body from '../Components/Body/Body';
 import Footer from '../Components/Footer/Footer';
@@ -14,7 +16,9 @@ const AgreementView = () => (
   >
     <Header />
     <Box sx={{ flexGrow: 1 }}>
-      <Body />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Body />
+      </LocalizationProvider>
     </Box>
     <Footer />
   </Box>
