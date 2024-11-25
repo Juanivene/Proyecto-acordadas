@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { Print, Share } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -162,10 +163,20 @@ const StaticModal = () => {
         <Loader />
       )}
       <DialogActions sx={{ justifyContent: 'center' }}>
-        <Button variant="outlined" color="primary" sx={{ mx: 1 }}>
+        <Button
+          variant="outlined"
+          color="primary"
+          sx={{ mx: 1 }}
+          startIcon={<Print />}
+        >
           IMPRIMIR
         </Button>
-        <Button variant="outlined" color="primary" sx={{ mx: 1 }}>
+        <Button
+          variant="outlined"
+          color="primary"
+          sx={{ mx: 1 }}
+          startIcon={<Share />}
+        >
           COMPARTIR
         </Button>
       </DialogActions>
