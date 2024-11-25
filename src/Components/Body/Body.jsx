@@ -49,13 +49,7 @@ const Body = () => {
         <Grid size={{ xs: 12 }}>
           <FormSearchFilter />
         </Grid>
-        <Grid size={{ xs: 12 }}>
-          {dataNow || error || dataNow.data.agreements.length === 0 ? (
-            ''
-          ) : (
-            <Alerts />
-          )}
-        </Grid>
+        <Grid size={{ xs: 12 }}>{dataNow || error ? '' : <Alerts />}</Grid>
         <Grid size={{ xs: 12 }}>
           {isLoading && <Loader />}
           {error ? <AlertError /> : ''}
