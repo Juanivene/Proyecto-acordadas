@@ -10,6 +10,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import {
   fetchApi,
   resetDataNow,
+  resetError,
   setAgreementsFilters,
 } from '../../../app/slice';
 
@@ -93,6 +94,7 @@ const FormSearchFilter = () => {
   const cleanFilter = () => {
     reset();
     dispatch(resetDataNow());
+    dispatch(resetError());
     setIsButtonDisabled(true);
   };
   return (

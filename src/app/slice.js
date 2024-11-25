@@ -23,6 +23,9 @@ export const miSlice = createSlice({
     index: 0,
   },
   reducers: {
+    resetError: (state) => {
+      state.error = null;
+    },
     resetDataNow: (state) => {
       state.dataNow = null;
     },
@@ -60,4 +63,5 @@ export const {
   setAgreementsFilters,
   incrementIndex,
   decrementIndex,
+  resetError,
 } = miSlice.actions;
