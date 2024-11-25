@@ -87,51 +87,55 @@ const Body = () => {
                 </Box>
               ))
             : null}
-          <Grid2
-            container
-            direction="row"
-            spacing={2}
-            sx={{
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginTop: 2,
-            }}
-          >
-            <Grid2 item xs={6}>
-              <Button
-                onClick={handleBack}
-                variant="outlined"
-                sx={{
-                  height: '40px',
-                  color: '#555',
-                  borderColor: '#555',
-                  '&:hover': {
+          {dataNow && dataNow.data.agreements.length > 0 ? (
+            <Grid2
+              container
+              direction="row"
+              spacing={2}
+              sx={{
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: 2,
+              }}
+            >
+              <Grid2 item xs={6}>
+                <Button
+                  onClick={handleBack}
+                  variant="outlined"
+                  sx={{
+                    height: '40px',
+                    color: '#555',
                     borderColor: '#555',
-                    backgroundColor: '#f8f9fa',
-                  },
-                }}
-              >
-                Anterior
-              </Button>
-            </Grid2>
-            <Grid2 item xs={6}>
-              <Button
-                onClick={handleNext}
-                variant="outlined"
-                sx={{
-                  height: '40px',
-                  color: '#555',
-                  borderColor: '#555',
-                  '&:hover': {
+                    '&:hover': {
+                      borderColor: '#555',
+                      backgroundColor: '#f8f9fa',
+                    },
+                  }}
+                >
+                  Anterior
+                </Button>
+              </Grid2>
+              <Grid2 item xs={6}>
+                <Button
+                  onClick={handleNext}
+                  variant="outlined"
+                  sx={{
+                    height: '40px',
+                    color: '#555',
                     borderColor: '#555',
-                    backgroundColor: '#f8f9fa',
-                  },
-                }}
-              >
-                Siguiente
-              </Button>
+                    '&:hover': {
+                      borderColor: '#555',
+                      backgroundColor: '#f8f9fa',
+                    },
+                  }}
+                >
+                  Siguiente
+                </Button>
+              </Grid2>
             </Grid2>
-          </Grid2>
+          ) : (
+            ''
+          )}
         </Grid>
       </Grid>
     </Container>
