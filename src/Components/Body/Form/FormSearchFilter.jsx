@@ -46,7 +46,7 @@ const FormSearchFilter = () => {
   }, [getValues]);
 
   const validateDate = () => {
-    let { startDate, endDate } = getValues();
+    const { startDate, endDate } = getValues();
     if ((startDate && !endDate) || (!startDate && endDate)) {
       Toast.fire({
         icon: 'error',
@@ -56,10 +56,10 @@ const FormSearchFilter = () => {
       return false;
     }
     if (startDate) {
-      startDate = dayjs(startDate);
-      endDate = dayjs(endDate);
+      const startDateFormated = dayjs(startDate);
+      const endDateFormated = dayjs(endDate);
 
-      if (!endDate.isAfter(startDate)) {
+      if (!endDateFormated.isAfter(startDateFormated)) {
         Toast.fire({
           icon: 'error',
           title: 'Intervalo de fecha invalido',
@@ -84,6 +84,7 @@ const FormSearchFilter = () => {
       data.startDate = dayjs(data.startDate).format('YYYY-DD-MM');
       data.endDate = dayjs(data.endDate).format('YYYY-DD-MM');
     }
+
     dispatch(fetchApi({ filters: data, index: 0 }));
     dispatch(setAgreementsFilters(data));
     return true;
