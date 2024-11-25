@@ -126,6 +126,7 @@ const FormSearchFilter = () => {
             sx={{
               '& .MuiOutlinedInput-root': {
                 borderRadius: '16px',
+                backgroundColor: 'rgb(262, 262, 262)',
               },
             }}
           />
@@ -141,6 +142,7 @@ const FormSearchFilter = () => {
                 sx={{
                   width: '100%',
                   '& .MuiOutlinedInput-root': {
+                    backgroundColor: 'rgb(262, 262, 262)',
                     borderRadius: '16px',
                   },
                 }}
@@ -180,6 +182,7 @@ const FormSearchFilter = () => {
                 sx={{
                   width: '100%',
                   '& .MuiOutlinedInput-root': {
+                    backgroundColor: 'rgb(262, 262, 262)',
                     borderRadius: '16px',
                   },
                 }}
@@ -230,6 +233,7 @@ const FormSearchFilter = () => {
             })}
             sx={{
               '& .MuiOutlinedInput-root': {
+                backgroundColor: 'rgb(262, 262, 262)',
                 borderRadius: '16px',
               },
             }}
@@ -245,6 +249,7 @@ const FormSearchFilter = () => {
               <TextField
                 sx={{
                   '& .MuiOutlinedInput-root': {
+                    backgroundColor: 'rgb(262, 262, 262)',
                     borderRadius: '16px',
                   },
                 }}
