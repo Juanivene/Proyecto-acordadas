@@ -33,7 +33,6 @@ const Body = () => {
     dispatch(decrementIndex());
     dispatch(fetchApi({ filters: agreementsFilters, index }));
   };
-
   return (
     <Container>
       <Grid
