@@ -15,7 +15,10 @@ import Typography from '@mui/material/Typography';
 import { fetchAgreement } from '../../../app/agreementSlice';
 import { closeModal } from '../../../app/modalSlice';
 
+import highlight from '../../../lib/highlight';
+import rtfToDiv from '../../../lib/rtfToDiv';
 import Loader from '../../ui/Loader';
+import AlertError from '../Table/AlertError';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -27,7 +30,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const StaticModal = () => {
-  const [open, setOpen] = useState(true); // El modal estará abierto por defecto
+  const [open, setOpen] = useState(true);
+  const [parsedText, setParsedText] = useState(null);
+  const [transforming, setTransforming] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,6 +47,31 @@ const StaticModal = () => {
   const { dataNow, isLoading, error } = useSelector(
     (state) => state.getAgreementSelected
   );
+  const { agreementsFilters } = useSelector(
+    (state) => state.getAgreementsFilters
+  );
+
+  useEffect(() => {
+    const transformRtf = async () => {
+      if (dataNow?.data?.agreement_text) {
+        setTransforming(true);
+        try {
+          const div = await rtfToDiv(dataNow.data.agreement_text);
+          const highlightedText = highlight(
+            div.innerHTML,
+            agreementsFilters.text
+          );
+          setParsedText(highlightedText);
+        } catch (err) {
+          <AlertError />;
+        } finally {
+          setTransforming(false);
+        }
+      }
+    };
+
+    transformRtf();
+  }, [dataNow, agreementsFilters.text]);
 
   const handleClose = () => {
     setOpen(false); // Para cerrar el modal si es necesario
@@ -56,16 +86,24 @@ const StaticModal = () => {
       </div>
     );
   }
+  if (transforming) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
 
   if (error) {
     return <div>Error: {error}</div>;
   }
+
   return (
     <BootstrapDialog
       onClose={handleClose}
       aria-labelledby="customized-dialog-title"
       open={open}
-      maxWidth="lg"
+      maxWidth="md"
     >
       <DialogTitle sx={{ m: 0, p: 2, textAlign: 'center', fontWeight: 'bold' }}>
         Acordada/Resolución seleccionada
@@ -113,7 +151,11 @@ const StaticModal = () => {
             <b>{dataNow.data.agreement_description}</b>
           </Typography>
           <Typography variant="body2" gutterBottom>
-            <b>CONSIDERANDO</b>: {dataNow.data.agreement_text}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: parsedText,
+              }}
+            />
           </Typography>
         </DialogContent>
       ) : (
