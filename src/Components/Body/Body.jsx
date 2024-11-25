@@ -18,6 +18,7 @@ const Body = () => {
     (state) => state.getAgreementsFilters
   );
   const dispatch = useDispatch();
+
   const handleNext = () => {
     if (dataNow.data.max_page === index + 1) {
       return;
@@ -33,6 +34,7 @@ const Body = () => {
     dispatch(decrementIndex());
     dispatch(fetchApi({ filters: agreementsFilters, index }));
   };
+
   return (
     <Container>
       <Grid
@@ -101,13 +103,16 @@ const Body = () => {
               <Grid2 item xs={6}>
                 <Button
                   onClick={handleBack}
+                  disabled={index === 0}
                   variant="outlined"
                   sx={{
                     height: '40px',
                     color: '#555',
+                    borderRadius: '18px',
                     borderColor: '#555',
                     '&:hover': {
-                      borderColor: '#555',
+                      width: '110px',
+                      borderColor: '#655',
                       backgroundColor: '#f8f9fa',
                     },
                   }}
@@ -118,12 +123,15 @@ const Body = () => {
               <Grid2 item xs={6}>
                 <Button
                   onClick={handleNext}
+                  disabled={dataNow?.data?.max_page === index + 1}
                   variant="outlined"
                   sx={{
                     height: '40px',
                     color: '#555',
-                    borderColor: '#555',
+                    borderColor: '#655',
+                    borderRadius: '18px',
                     '&:hover': {
+                      width: '110px',
                       borderColor: '#555',
                       backgroundColor: '#f8f9fa',
                     },

@@ -123,6 +123,11 @@ const FormSearchFilter = () => {
             {...(errors.number && {
               error: true,
             })}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '16px',
+              },
+            }}
           />
           {errors.number && <AlertForm message={errors.number.message} />}
         </Grid>
@@ -133,7 +138,12 @@ const FormSearchFilter = () => {
             defaultValue={null}
             render={({ field: { onChange: onChangeRHF, value } }) => (
               <DatePicker
-                sx={{ width: '100%' }}
+                sx={{
+                  width: '100%',
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '16px',
+                  },
+                }}
                 label="Fecha desde"
                 value={value ? dayjs(value) : null}
                 onChange={(newValue) => {
@@ -167,7 +177,12 @@ const FormSearchFilter = () => {
             defaultValue={null}
             render={({ field: { onChange: onChangeRHF, value } }) => (
               <DatePicker
-                sx={{ width: '100%' }}
+                sx={{
+                  width: '100%',
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '16px',
+                  },
+                }}
                 label="Fecha hasta"
                 value={value ? dayjs(value) : null}
                 onChange={(newValue) => {
@@ -213,6 +228,11 @@ const FormSearchFilter = () => {
             {...(errors.text && {
               error: true,
             })}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '16px',
+              },
+            }}
           />
           {errors.text && <AlertForm message={errors.text.message} />}
         </Grid>
@@ -223,6 +243,11 @@ const FormSearchFilter = () => {
             fullWidth
             renderInput={(params) => (
               <TextField
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '16px',
+                  },
+                }}
                 {...params}
                 label="Tipos"
                 {...register('type', {
@@ -260,7 +285,7 @@ const FormSearchFilter = () => {
               padding: {
                 xs: '16px 36px',
                 sm: '16px 48px',
-                md: '20px 96px',
+                md: '15px 96px',
               },
               fontSize: {
                 xs: '0.75rem',
@@ -286,7 +311,7 @@ const FormSearchFilter = () => {
               padding: {
                 xs: '16px 36px',
                 sm: '16px 48px',
-                md: '20px 96px',
+                md: '15px 96px',
               },
               fontSize: {
                 xs: '0.75rem',

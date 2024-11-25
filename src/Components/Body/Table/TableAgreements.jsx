@@ -55,9 +55,9 @@ const TableAgreements = () => {
         Acordada(s)/Resolucion(es) encontrada(s): <b>{dataNow.data.max_size}</b>
       </Typography>
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ borderRadius: '20px' }}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead sx={{ backgroundColor: '#6c757d' }}>
+          <TableHead>
             <TableRow>
               <StyledTableCell
                 align="left"
