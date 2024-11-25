@@ -14,6 +14,8 @@ import TableRow from '@mui/material/TableRow';
 
 import { openModal } from '../../../app/modalSlice';
 
+import dayjs from 'dayjs';
+
 import CustomizedDialog from '../Modal/CustomizedDialogs';
 
 const TableAgreements = () => {
@@ -128,7 +130,7 @@ const TableAgreements = () => {
                   {a.agreement_number}/{a.agreement_year}
                 </StyledTableCell>
                 <StyledTableCell align="left">
-                  {a.agreement_date}
+                  {dayjs(a.agreement_date).format('DD/MM/YYYY')}
                 </StyledTableCell>
                 <StyledTableCell align="left">
                   {a.agreement_description}
