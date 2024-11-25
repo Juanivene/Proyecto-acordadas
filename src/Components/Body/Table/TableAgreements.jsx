@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Visibility } from '@mui/icons-material';
-import { Button, Grid2, IconButton, Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -13,15 +13,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 import { openModal } from '../../../app/modalSlice';
-import { decrementIndex, fetchApi, incrementIndex } from '../../../app/slice';
 
 import CustomizedDialog from '../Modal/CustomizedDialogs';
 
 const TableAgreements = () => {
   const { isOpen } = useSelector((state) => state.modal);
-  const { dataNow, agreementsFilters, index } = useSelector(
-    (state) => state.getAgreementsFilters
-  );
+  const { dataNow } = useSelector((state) => state.getAgreementsFilters);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleClick = (id) => {
@@ -51,21 +48,7 @@ const TableAgreements = () => {
       border: 0,
     },
   }));
-  const handleNext = () => {
-    if (dataNow.data.max_page === index + 1) {
-      return;
-    }
-    dispatch(incrementIndex());
 
-    dispatch(fetchApi({ filters: agreementsFilters, index }));
-  };
-  const handleBack = () => {
-    if (index === 0) {
-      return;
-    }
-    dispatch(decrementIndex());
-    dispatch(fetchApi({ filters: agreementsFilters, index }));
-  };
   return (
     <article>
       <Typography component="h2" variant="h6" sx={{ marginBottom: 2 }}>
@@ -164,52 +147,6 @@ const TableAgreements = () => {
         </Table>
         {isOpen ? <CustomizedDialog /> : ''}
       </TableContainer>
-
-      <Grid2
-        container
-        direction="row"
-        spacing={2}
-        sx={{
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginTop: 2,
-        }}
-      >
-        <Grid2 item xs={6}>
-          <Button
-            onClick={handleBack}
-            variant="outlined"
-            sx={{
-              height: '40px',
-              color: '#555',
-              borderColor: '#555',
-              '&:hover': {
-                borderColor: '#555',
-                backgroundColor: '#f8f9fa',
-              },
-            }}
-          >
-            Anterior
-          </Button>
-        </Grid2>
-        <Grid2 item xs={6}>
-          <Button
-            onClick={handleNext}
-            variant="outlined"
-            sx={{
-              height: '40px',
-              color: '#555',
-              borderColor: '#555',
-              '&:hover': {
-                borderColor: '#555',
-                backgroundColor: '#f8f9fa',
-              },
-            }}
-          >
-            Siguiente
-          </Button>
-        </Grid2>
-      </Grid2>
     </article>
   );
 };

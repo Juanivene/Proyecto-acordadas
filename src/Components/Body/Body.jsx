@@ -1,8 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Box, Container, Grid2 as Grid } from '@mui/material';
+import { Box, Button, Container, Grid2 as Grid, Grid2 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
+import { decrementIndex, fetchApi, incrementIndex } from '../../app/slice';
 
 import Loader from '../ui/Loader';
 import Alerts from './Alerts';
@@ -12,10 +14,25 @@ import CardTable from './Table/CardTable';
 import TableAgreements from './Table/TableAgreements';
 
 const Body = () => {
-  const { dataNow, isLoading, error } = useSelector(
+  const { dataNow, isLoading, error, index, agreementsFilters } = useSelector(
     (state) => state.getAgreementsFilters
   );
+  const dispatch = useDispatch();
+  const handleNext = () => {
+    if (dataNow.data.max_page === index + 1) {
+      return;
+    }
+    dispatch(incrementIndex());
 
+    dispatch(fetchApi({ filters: agreementsFilters, index }));
+  };
+  const handleBack = () => {
+    if (index === 0) {
+      return;
+    }
+    dispatch(decrementIndex());
+    dispatch(fetchApi({ filters: agreementsFilters, index }));
+  };
   return (
     <Container>
       <Grid
@@ -70,6 +87,51 @@ const Body = () => {
                 </Box>
               ))
             : null}
+          <Grid2
+            container
+            direction="row"
+            spacing={2}
+            sx={{
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: 2,
+            }}
+          >
+            <Grid2 item xs={6}>
+              <Button
+                onClick={handleBack}
+                variant="outlined"
+                sx={{
+                  height: '40px',
+                  color: '#555',
+                  borderColor: '#555',
+                  '&:hover': {
+                    borderColor: '#555',
+                    backgroundColor: '#f8f9fa',
+                  },
+                }}
+              >
+                Anterior
+              </Button>
+            </Grid2>
+            <Grid2 item xs={6}>
+              <Button
+                onClick={handleNext}
+                variant="outlined"
+                sx={{
+                  height: '40px',
+                  color: '#555',
+                  borderColor: '#555',
+                  '&:hover': {
+                    borderColor: '#555',
+                    backgroundColor: '#f8f9fa',
+                  },
+                }}
+              >
+                Siguiente
+              </Button>
+            </Grid2>
+          </Grid2>
         </Grid>
       </Grid>
     </Container>
