@@ -1,4 +1,3 @@
-import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -18,7 +17,6 @@ const Loader = () => (
     open
   >
     <Box display="flex" alignItems="center" flexDirection="column" gap={1}>
-      <HourglassBottomIcon sx={{ fontSize: 60, color: '#2196f3' }} />
       <CircularProgress color="primary" />
     </Box>
     <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#fff' }}>
