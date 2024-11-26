@@ -54,10 +54,10 @@ const StaticModal = () => {
 
   useEffect(() => {
     const transformRtf = async () => {
-      if (dataNow?.data?.agreement_text) {
+      if (dataNow?.data?.text) {
         setTransforming(true);
         try {
-          const div = await rtfToDiv(dataNow.data.agreement_text);
+          const div = await rtfToDiv(dataNow.data.text);
           const highlightedText = highlight(
             div.innerHTML,
             agreementsFilters.text
@@ -134,19 +134,18 @@ const StaticModal = () => {
             }}
           >
             <strong>
-              Número: {dataNow.data.agreement_number}/
-              {dataNow.data.agreement_year}
+              Número: {dataNow.data.number}/{dataNow.data.year}
             </strong>
 
             <br />
-            <strong>Fecha: {dataNow.data.agreement_date}</strong>
+            <strong>Fecha: {dataNow.data.date}</strong>
           </Typography>
           <Typography
             variant="h6"
             gutterBottom
             sx={{ mt: 2, fontWeight: 'bold' }}
           >
-            {dataNow.data.type_agreement.description}
+            {dataNow.data.typeDescription}
           </Typography>
           <Typography variant="body2" gutterBottom>
             <b>{dataNow.data.agreement_description}</b>
