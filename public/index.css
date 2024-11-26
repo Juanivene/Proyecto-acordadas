@@ -18,6 +18,11 @@
   min-height: 100%;
 }
 
+body {
+  background: rgb(206, 204, 204);
+  padding: 1rem 2rem 2rem 2rem;
+}
+
 button {
   outline: none;
   border: none;
@@ -387,44 +392,6 @@ button {
   animation: in-keyframes-top-short 0.5s both;
 }
 
-/*  Waves  */
-
-.waves {
-  width: 100%;
-  height: 200px;
-  margin-bottom: -7px; /*Fix for safari gap*/
-  min-height: 100px;
-  max-height: 200px;
-}
-
-.parallax > use {
-  animation: move-forever 35s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
-}
-.parallax > use:nth-child(1) {
-  animation-duration: 9s;
-}
-.parallax > use:nth-child(2) {
-  animation-delay: -10s;
-  animation-duration: 20s;
-}
-
-@keyframes move-forever {
-  0% {
-    transform: translate3d(-90px, 0, 0);
-  }
-  100% {
-    transform: translate3d(85px, 0, 0);
-  }
-}
-
-/* Shrinking for mobile */
-
-@media (max-width: 900px) {
-  .waves {
-    display: none;
-  }
-}
-
 /* Number input (arrow hidding) */
 
 /* Chrome, Safari, Edge, Opera */
@@ -492,51 +459,10 @@ input[type='number'] {
   transition: all 300ms ease-in-out;
 }
 
-/* Accessibilidad */
-
-.highContrast p,
-.highContrast span,
-.highContrast h1,
-.highContrast h2,
-.highContrast h3,
-.highContrast h4,
-.highContrast h5,
-.highContrast h6,
-.highContrast button,
-.highContrast a,
-.highContrast input,
-.highContrast label,
-.highContrast th,
-.highContrast td,
-.highContrast div {
-  color: var(--high-contrast-color) !important;
-  text-shadow: var(--high-contrast-color-shadow) !important;
-}
-
-.highContrast body {
-  content-visibility: auto;
-}
-
-.monochromatic {
-  filter: grayscale(100%);
-  height: 100vh;
-}
-
-.animation .animate-in-bottom,
-.animation .animate-in-bottom-short,
-.animation .animate-in-right,
-.animation .animate-in-right-short,
-.animation .animate-in-top,
-.animation .animate-in-top-short {
-  animation: none;
-}
-
-.animation #waves {
-  display: none;
-}
-
-.animation a,
-.animation button,
-.animation div {
-  transition: none !important;
+.text-highlight {
+  background-color: #ffff00;
+  color: #3f3f3f;
+  border-radius: 5px;
+  padding: 0;
+  margin: 0 2px;
 }

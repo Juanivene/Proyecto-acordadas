@@ -114,5 +114,7 @@ module.exports = {
 
     // ! Additional rules that disable eslint-config-airbnb plugin configurations
     'no-param-reassign': 'off', // Disables the rule to prevent reassignment of function parameters
+
+    'import/order': 'off',
   },
 };

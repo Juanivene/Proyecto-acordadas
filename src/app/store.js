@@ -1,21 +1,15 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
-const rootReducer = combineReducers({
-  // surfaces: surfacesSlice,
-  // [addressApiSlice.reducerPath]: addressApiSlice.reducer,
-});
+import getAgreementSelectedReducer from './agreementSlice';
+import modalReducer from './modalSlice';
+import getAgreementsFiltersReducer from './slice';
 
 const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      immutableCheck: false,
-      serializableCheck: false,
-    })
-      .concat
-      // addressApiSlice.middleware
-      (),
-  devTools: import.meta.env.MODE === 'development',
+  reducer: {
+    getAgreementsFilters: getAgreementsFiltersReducer,
+    modal: modalReducer,
+    getAgreementSelected: getAgreementSelectedReducer,
+  },
 });
 
 export default store;
