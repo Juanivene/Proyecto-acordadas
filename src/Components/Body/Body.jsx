@@ -29,6 +29,7 @@ const Body = () => {
     if (dataNow.data.totalPages === index) {
       return;
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const newIndex = index + 1;
     dispatch(incrementIndex());
     dispatch(fetchApi({ filters: agreementsFilters, index: newIndex }));
@@ -37,6 +38,7 @@ const Body = () => {
     if (index === 0) {
       return;
     }
+    window.scrollTo({ top: 100, behavior: 'smooth' });
     const newIndex = index - 1;
     dispatch(decrementIndex());
     dispatch(fetchApi({ filters: agreementsFilters, index: newIndex }));

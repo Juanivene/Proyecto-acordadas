@@ -10,7 +10,6 @@ const Footer = () => (
       fontFamily: '"Poppins", sans-serif', // Puedes elegir cualquier fuente redondeada
       fontSize: '1.2rem', // Aumentar el tamaño de la letra
       textAlign: 'center',
-      padding: 2,
       color: '#333',
     }}
   >

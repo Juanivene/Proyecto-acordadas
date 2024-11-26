@@ -11,7 +11,7 @@ const AgreementView = () => (
     sx={{
       display: 'flex',
       flexDirection: 'column',
-      minHeight: '99vh',
+      minHeight: '80vh',
     }}
   >
     <Header />

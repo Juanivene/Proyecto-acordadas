@@ -251,64 +251,66 @@ const FormSearchFilter = () => {
           />
           {errors.type && <AlertForm message={errors.type.message} />}
         </Grid>
-      </Grid>
-      <Grid
-        container
-        direction="row"
-        spacing={2}
-        sx={{ justifyContent: 'center', alignItems: 'center' }}
-      >
-        <Grid size={{ xs: 6 }} display="flex" justifyContent="center">
-          <Button
-            onClick={cleanFilter}
-            variant="contained"
-            disabled={isButtonDisabled}
-            size="large"
-            sx={{
-              backgroundColor: 'rgb(158, 158, 158);',
-              m: 1,
-              borderRadius: 8,
-              padding: {
-                xs: '16px 36px',
-                sm: '16px 48px',
-                md: '15px 96px',
-              },
-              fontSize: {
-                xs: '0.75rem',
-                sm: '0.875rem',
-                md: '1rem',
-              },
-            }}
-            startIcon={<DeleteIcon />}
+        <Grid size={{ xs: 12 }}>
+          <Grid
+            container
+            direction="row"
+            spacing={2}
+            sx={{ justifyContent: 'center', alignItems: 'center' }}
           >
-            Limpiar
-          </Button>
-        </Grid>
-        <Grid size={{ xs: 6 }} display="flex" justifyContent="center">
-          <Button
-            type="submit"
-            variant="contained"
-            disabled={isButtonDisabled}
-            size="large"
-            sx={{
-              backgroundColor: 'rgb(63, 117, 168)',
-              m: 1,
-              borderRadius: 8,
-              padding: {
-                xs: '16px 36px',
-                sm: '16px 48px',
-                md: '15px 96px',
-              },
-              fontSize: {
-                xs: '0.75rem',
-                sm: '0.875rem',
-                md: '1rem',
-              },
-            }}
-            startIcon={<SearchIcon />}
-          >
-            Buscar
-          </Button>
+            <Grid size={{ xs: 6 }} display="flex" justifyContent="center">
+              <Button
+                onClick={cleanFilter}
+                variant="contained"
+                disabled={isButtonDisabled}
+                size="large"
+                sx={{
+                  backgroundColor: 'rgb(158, 158, 158);',
+                  m: 1,
+                  borderRadius: 8,
+                  padding: {
+                    xs: '15px 36px',
+                    sm: '15px 48px',
+                    md: '14px 96px',
+                  },
+                  fontSize: {
+                    xs: '0.75rem',
+                    sm: '0.875rem',
+                    md: '1rem',
+                  },
+                }}
+                startIcon={<DeleteIcon />}
+              >
+                Limpiar
+              </Button>
+            </Grid>
+            <Grid size={{ xs: 6 }} display="flex" justifyContent="center">
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={isButtonDisabled}
+                size="large"
+                sx={{
+                  backgroundColor: 'rgb(63, 117, 168)',
+                  m: 1,
+                  borderRadius: 8,
+                  padding: {
+                    xs: '16px 36px',
+                    sm: '16px 48px',
+                    md: '15px 96px',
+                  },
+                  fontSize: {
+                    xs: '0.75rem',
+                    sm: '0.875rem',
+                    md: '1rem',
+                  },
+                }}
+                startIcon={<SearchIcon />}
+              >
+                Buscar
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </form>

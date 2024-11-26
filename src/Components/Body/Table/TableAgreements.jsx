@@ -49,98 +49,95 @@ const TableAgreements = () => {
     },
   }));
   return (
-    <article>
-      <TableContainer component={Paper} sx={{ borderRadius: '20px' }}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell
-                align="left"
-                sx={{
-                  fontWeight: 'bold',
-                  fontSize: '1rem',
-                  backgroundColor: '#6c757d',
-                }}
-              >
-                Número
+    <TableContainer component={Paper} sx={{ borderRadius: '20px' }}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell
+              align="center" // Centra el título
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                backgroundColor: '#6c757d',
+              }}
+            >
+              Número
+            </StyledTableCell>
+            <StyledTableCell
+              align="center" // Centra el título
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                backgroundColor: '#6c757d',
+              }}
+            >
+              Fecha
+            </StyledTableCell>
+            <StyledTableCell
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                backgroundColor: '#6c757d',
+              }}
+            >
+              Descripción
+            </StyledTableCell>
+            <StyledTableCell
+              align="center"
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                backgroundColor: '#6c757d',
+              }}
+            >
+              Tipo
+            </StyledTableCell>
+            <StyledTableCell
+              align="center" // Centra el título
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                backgroundColor: '#6c757d',
+              }}
+            >
+              Acciones
+            </StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {dataNow.data.agreements.map((a) => (
+            <StyledTableRow
+              key={a.id}
+              onClick={() => handleClick(a.id)}
+              sx={{
+                cursor: 'pointer',
+                transition: 'background-color 0.3s ease',
+                '&:hover': {
+                  backgroundColor: 'rgb(206, 204, 204)', // Color al pasar el mouse
+                },
+              }}
+            >
+              <StyledTableCell align="center">
+                {a.number}/{a.year}
               </StyledTableCell>
-              <StyledTableCell
-                align="left"
-                sx={{
-                  fontWeight: 'bold',
-                  fontSize: '1rem',
-                  backgroundColor: '#6c757d',
-                }}
-              >
-                Fecha
+              <StyledTableCell align="center">
+                {dayjs(a.date).format('DD/MM/YYYY')}
               </StyledTableCell>
-              <StyledTableCell
-                align="left"
-                sx={{
-                  fontWeight: 'bold',
-                  fontSize: '1rem',
-                  backgroundColor: '#6c757d',
-                }}
-              >
-                Descripción
+              <StyledTableCell>{a.description}</StyledTableCell>
+              <StyledTableCell align="center">
+                {a.typeDescription}
               </StyledTableCell>
-              <StyledTableCell
-                align="left"
-                sx={{
-                  fontWeight: 'bold',
-                  fontSize: '1rem',
-                  backgroundColor: '#6c757d',
-                }}
-              >
-                Tipo
+              <StyledTableCell align="center">
+                <IconButton aria-label="eye icon">
+                  <Visibility />
+                </IconButton>
               </StyledTableCell>
-              <StyledTableCell
-                align="left"
-                sx={{
-                  fontWeight: 'bold',
-                  fontSize: '1rem',
-                  backgroundColor: '#6c757d',
-                }}
-              >
-                Acciones
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {dataNow.data.agreements.map((a) => (
-              <StyledTableRow
-                key={a.id}
-                onClick={() => handleClick(a.id)}
-                sx={{
-                  cursor: 'pointer',
-                  transition: 'background-color 0.3s ease',
-                  '&:hover': {
-                    backgroundColor: 'rgb(206, 204, 204)', // Color al pasar el mouse
-                  },
-                }}
-              >
-                <StyledTableCell align="left">
-                  {a.number}/{a.year}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {dayjs(a.date).format('DD/MM/YYYY')}
-                </StyledTableCell>
-                <StyledTableCell align="left">{a.description}</StyledTableCell>
-                <StyledTableCell align="left">
-                  {a.typeDescription}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  <IconButton aria-label="eye icon">
-                    <Visibility />
-                  </IconButton>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-        {isOpen ? <CustomizedDialog /> : ''}
-      </TableContainer>
-    </article>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+      {isOpen ? <CustomizedDialog /> : ''}
+    </TableContainer>
   );
 };
 export default TableAgreements;

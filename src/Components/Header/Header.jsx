@@ -16,7 +16,7 @@ const Header = () => (
       />
     </Grid>
     <Grid size={{ sm: 12, md: 6 }} display="flex" justifyContent="center">
-      <Typography variant="h1" sx={{ fontSize: '1.8rem' }}>
+      <Typography variant="h1" sx={{ fontSize: '1.8rem', fontWeight: 'bold' }}>
         Acordadas y Resoluciones
       </Typography>
     </Grid>
