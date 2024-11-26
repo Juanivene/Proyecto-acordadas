@@ -1,6 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Box, Button, Container, Grid2 as Grid, Grid2 } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  Grid2 as Grid,
+  Grid2,
+  Typography,
+} from '@mui/material';
 
 import { decrementIndex, fetchApi, incrementIndex } from '../../app/slice';
 
@@ -19,7 +26,7 @@ const Body = () => {
   const dispatch = useDispatch();
 
   const handleNext = () => {
-    if (dataNow.data.max_page === index + 1) {
+    if (dataNow.data.totalPages === index + 1) {
       return;
     }
     dispatch(incrementIndex());
@@ -52,12 +59,20 @@ const Body = () => {
         <Grid size={{ xs: 12 }}>
           {isLoading && <Loader />}
           {error ? <AlertError /> : ''}
-          {dataNow && dataNow.data.agreements.length === 0 ? (
+          {dataNow && dataNow.data.agreements.length === 0 && !error ? (
             <AlertNoAgreements />
           ) : (
             ''
           )}
-          {dataNow && dataNow.data.agreements.length > 0 ? (
+          {dataNow && dataNow.data.agreements.length > 0 && !error ? (
+            <Typography component="h2" variant="h6" sx={{ margin: 2 }}>
+              Acordada(s)/Resolucion(es) encontrada(s):{' '}
+              <b>{dataNow.data.totalItems}</b>
+            </Typography>
+          ) : (
+            ''
+          )}
+          {dataNow && dataNow.data.agreements.length > 0 && !error ? (
             <Box
               sx={{
                 display: { xs: 'none', sm: 'none', md: 'block', lg: 'block' },
@@ -68,7 +83,7 @@ const Body = () => {
           ) : (
             ''
           )}
-          {dataNow && dataNow.data.agreements.length > 0
+          {dataNow && dataNow.data.agreements.length > 0 && !error
             ? dataNow.data.agreements.map((a) => (
                 <Box
                   key={a.id}
@@ -97,7 +112,7 @@ const Body = () => {
                 marginTop: 2,
               }}
             >
-              <Grid2 item xs={6}>
+              <Grid2 size={{ xs: 4 }} display="flex" justifyContent="center">
                 <Button
                   onClick={handleBack}
                   disabled={index === 0}
@@ -117,10 +132,19 @@ const Body = () => {
                   Anterior
                 </Button>
               </Grid2>
-              <Grid2 item xs={6}>
+              <Grid2 size={{ sm: 4, xs: 1 }}>
+                <Typography
+                  component="h3"
+                  display="flex"
+                  justifyContent="center"
+                >
+                  pagina {index + 1} de {dataNow.data.totalPages}
+                </Typography>
+              </Grid2>
+              <Grid2 size={{ xs: 4 }} display="flex" justifyContent="center">
                 <Button
                   onClick={handleNext}
-                  disabled={dataNow?.data?.max_page === index + 1}
+                  disabled={dataNow?.data?.totalPages === index + 1}
                   variant="outlined"
                   sx={{
                     height: '40px',

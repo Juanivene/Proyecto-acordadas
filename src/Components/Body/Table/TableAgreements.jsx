@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Visibility } from '@mui/icons-material';
-import { IconButton, Typography } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -50,11 +50,6 @@ const TableAgreements = () => {
   }));
   return (
     <article>
-      <Typography component="h2" variant="h6" sx={{ marginBottom: 2 }}>
-        Acordada(s)/Resolucion(es) encontrada(s):{' '}
-        <b>{dataNow.data.totalItems}</b>
-      </Typography>
-
       <TableContainer component={Paper} sx={{ borderRadius: '20px' }}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>

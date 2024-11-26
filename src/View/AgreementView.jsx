@@ -2,13 +2,9 @@ import { Box } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-import dayjs from 'dayjs';
-
 import Body from '../Components/Body/Body';
 import Footer from '../Components/Footer/Footer';
 import Header from '../Components/Header/Header';
-
-dayjs.locale('es');
 
 const AgreementView = () => (
   <Box

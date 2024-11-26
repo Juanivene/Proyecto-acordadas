@@ -19,8 +19,6 @@ import dayjs from 'dayjs';
 import AlertForm, { Toast } from './AlertForm';
 import optionsSelect from './optionsSelectForm';
 
-// dayjs.locale('es');
-
 const FormSearchFilter = () => {
   const {
     register,
