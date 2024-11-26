@@ -29,8 +29,6 @@ const TableAgreements = () => {
     navigate(`?${params.toString()}`); // Navega con los nuevos parámetros
     dispatch(openModal());
   };
-  const { agreements } = dataNow.data;
-
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -50,11 +48,11 @@ const TableAgreements = () => {
       border: 0,
     },
   }));
-
   return (
     <article>
       <Typography component="h2" variant="h6" sx={{ marginBottom: 2 }}>
-        Acordada(s)/Resolucion(es) encontrada(s): <b>{dataNow.data.max_size}</b>
+        Acordada(s)/Resolucion(es) encontrada(s):{' '}
+        <b>{dataNow.data.totalItems}</b>
       </Typography>
 
       <TableContainer component={Paper} sx={{ borderRadius: '20px' }}>
@@ -114,7 +112,7 @@ const TableAgreements = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {agreements.map((a) => (
+            {dataNow.data.agreements.map((a) => (
               <StyledTableRow
                 key={a.id}
                 onClick={() => handleClick(a.id)}
@@ -127,16 +125,14 @@ const TableAgreements = () => {
                 }}
               >
                 <StyledTableCell align="left">
-                  {a.agreement_number}/{a.agreement_year}
+                  {a.number}/{a.year}
                 </StyledTableCell>
                 <StyledTableCell align="left">
-                  {dayjs(a.agreement_date).format('DD/MM/YYYY')}
+                  {dayjs(a.date).format('DD/MM/YYYY')}
                 </StyledTableCell>
+                <StyledTableCell align="left">{a.description}</StyledTableCell>
                 <StyledTableCell align="left">
-                  {a.agreement_description}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {a.type_agreement.description}
+                  {a.typeDescription}
                 </StyledTableCell>
                 <StyledTableCell align="left">
                   <IconButton aria-label="eye icon">

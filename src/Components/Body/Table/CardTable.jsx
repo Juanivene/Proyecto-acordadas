@@ -58,7 +58,7 @@ const CardTable = (props) => {
                   color: '#333',
                 }}
               >
-                {a.agreement_number}/{a.agreement_year}
+                {a.number}/{a.year}
               </Typography>
               <Typography
                 variant="body2"
@@ -66,7 +66,7 @@ const CardTable = (props) => {
                   color: '#666',
                 }}
               >
-                {a.agreement_date}
+                {a.date}
               </Typography>
             </Box>
             <Typography
@@ -78,7 +78,7 @@ const CardTable = (props) => {
                 mb: 1,
               }}
             >
-              {a.type_agreement.description}
+              {a.typeDescription}
             </Typography>
             <Typography
               variant="body1"
@@ -87,7 +87,7 @@ const CardTable = (props) => {
                 fontWeight: 500,
               }}
             >
-              {a.agreement_description}
+              {a.description}
             </Typography>{' '}
             <Divider sx={{ width: '100%' }} />
           </Box>

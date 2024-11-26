@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+import agreementsAdapter from '../adapter/adapter';
 import { getAgreementsFn } from '../api/agreements';
 
 export const fetchApi = createAsyncThunk(
@@ -7,7 +8,8 @@ export const fetchApi = createAsyncThunk(
   async ({ filters, index }, thunkAPI) => {
     try {
       const data = await getAgreementsFn(filters, index);
-      return data;
+      const dataAdapted = agreementsAdapter(data);
+      return dataAdapted;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

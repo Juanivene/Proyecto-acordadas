@@ -1,3 +1,5 @@
+import agreementsAdapter from '../adapter/adapter';
+
 const apiAgreements = import.meta.env.VITE_API_AGREEMENTS;
 const apiAgreement = import.meta.env.VITE_API_AGREEMENT;
 export const getAgreementsFn = async (filters, i) => {
@@ -26,14 +28,11 @@ export const getAgreementsFn = async (filters, i) => {
   if (!res.ok) {
     throw new Error('ocurrio un problma al obtener los datos bro');
   }
+  agreementsAdapter(data);
+
   return data;
 };
 
-// todo te conviene mover la funcion a un slice donde se
-// todo ejecute la funcion para que dinamicamente se mueva
-// todo el index cuando se presione el boton de siguiente
-// que le mande el index como 0 por defecto y cada vez que
-// presione el boton se sume 1
 export const getAgreementFn = async (id) => {
   const res = await fetch(`${apiAgreement}${id}`);
   const data = await res.json();
