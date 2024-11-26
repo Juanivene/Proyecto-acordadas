@@ -16,6 +16,8 @@ import Typography from '@mui/material/Typography';
 import { fetchAgreement } from '../../../app/agreementSlice';
 import { closeModal } from '../../../app/modalSlice';
 
+import dayjs from 'dayjs';
+
 import highlight from '../../../lib/highlight';
 import rtfToDiv from '../../../lib/rtfToDiv';
 import Loader from '../../ui/Loader';
@@ -138,7 +140,9 @@ const StaticModal = () => {
             </strong>
 
             <br />
-            <strong>Fecha: {dataNow.data.date}</strong>
+            <strong>
+              Fecha: {dayjs(dataNow.data.date).format('DD/MM/YYYY')}
+            </strong>
           </Typography>
           <Typography
             variant="h6"

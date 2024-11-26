@@ -5,6 +5,7 @@ import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
 
 import { openModal } from '../../../app/modalSlice';
 
+import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 
 const CardTable = (props) => {
@@ -66,7 +67,7 @@ const CardTable = (props) => {
                   color: '#666',
                 }}
               >
-                {a.date}
+                {dayjs(a.date).format('DD/MM/YYYY')}
               </Typography>
             </Box>
             <Typography
