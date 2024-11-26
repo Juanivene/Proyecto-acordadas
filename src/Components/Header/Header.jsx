@@ -10,7 +10,7 @@ const Header = () => (
     <Grid size={{ sm: 12, md: 6 }} display="flex" justifyContent="center">
       <Box
         component="img"
-        src="public/assets/img/logos/logo-corte-2019.png"
+        src="https://acordadas.justucuman.gov.ar/img/logos/logo-corte.png"
         alt="imgCSDJ"
         sx={{ height: 72 }}
       />

@@ -19,14 +19,16 @@ import dayjs from 'dayjs';
 import AlertForm, { Toast } from './AlertForm';
 import optionsSelect from './optionsSelectForm';
 
+// dayjs.locale('es');
+
 const FormSearchFilter = () => {
   const {
     register,
     handleSubmit: onSubmitRHF,
     formState: { errors },
     getValues,
-    control,
     watch,
+    control,
     reset,
   } = useForm();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -78,12 +80,12 @@ const FormSearchFilter = () => {
   }, [watch, validateFields]);
 
   const handleSubmit = (data) => {
-    if (!validateDate(data.startDate) || !validateFields()) {
+    if (!validateDate() || !validateFields()) {
       return false;
     }
     if (data.startDate) {
-      data.startDate = dayjs(data.startDate).format('YYYY-DD-MM');
-      data.endDate = dayjs(data.endDate).format('YYYY-DD-MM');
+      data.startDate = dayjs(data.startDate).format('YYYY-MM-DD');
+      data.endDate = dayjs(data.endDate).format('YYYY-MM-DD');
     }
 
     dispatch(fetchApi({ filters: data, index: 0 }));
@@ -138,8 +140,7 @@ const FormSearchFilter = () => {
           <Controller
             name="startDate"
             control={control}
-            defaultValue={null}
-            render={({ field: { onChange: onChangeRHF, value } }) => (
+            render={({ field }) => (
               <DatePicker
                 sx={{
                   width: '100%',
@@ -148,28 +149,17 @@ const FormSearchFilter = () => {
                     borderRadius: '16px',
                   },
                 }}
-                label="Fecha desde"
-                value={value ? dayjs(value) : null}
-                onChange={(newValue) => {
-                  const formattedDate = newValue
-                    ? newValue.format('DD-MM-YYYY')
-                    : null;
-                  onChangeRHF(formattedDate);
-                }}
+                {...field}
+                label="Fecha Desde"
+                format="DD/MM/YYYY"
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    error={!errors.endDate}
-                    helperText={errors.endDate ? errors.endDate.message : ''}
                     fullWidth
-                    {...register('startDate', {
-                      validate: {
-                        l: () => validateDate() || 'Completa el otro',
-                      },
-                    })}
+                    error={!!errors.startDate}
+                    helperText={errors.startDate?.message}
                   />
                 )}
-                maxDate={dayjs()}
               />
             )}
           />
@@ -178,8 +168,7 @@ const FormSearchFilter = () => {
           <Controller
             name="endDate"
             control={control}
-            defaultValue={null}
-            render={({ field: { onChange: onChangeRHF, value } }) => (
+            render={({ field }) => (
               <DatePicker
                 sx={{
                   width: '100%',
@@ -188,28 +177,18 @@ const FormSearchFilter = () => {
                     borderRadius: '16px',
                   },
                 }}
-                label="Fecha hasta"
-                value={value ? dayjs(value) : null}
-                onChange={(newValue) => {
-                  const formattedDate = newValue
-                    ? newValue.format('DD-MM-YYYY')
-                    : null;
-                  onChangeRHF(formattedDate);
-                }}
+                {...field}
+                label="Fecha Hasta"
+                format="DD/MM/YYYY"
+                maxDate={dayjs()}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    error={!errors.endDate}
-                    helperText={errors.endDate ? errors.endDate.message : ''}
                     fullWidth
-                    {...register('endDate', {
-                      validate: {
-                        l: () => validateDate() || 'Completa el otro',
-                      },
-                    })}
+                    error={!!errors.endDate}
+                    helperText={errors.endDate?.message}
                   />
                 )}
-                maxDate={dayjs()}
               />
             )}
           />
