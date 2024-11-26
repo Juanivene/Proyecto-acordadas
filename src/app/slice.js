@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { agreementsAdapter } from '../adapter/adapter';
+import agreementsAdapter from '../adapter/adapterAgreements';
 import { getAgreementsFn } from '../api/agreements';
 
 export const fetchApi = createAsyncThunk(

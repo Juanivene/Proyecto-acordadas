@@ -1,4 +1,4 @@
-import agreementsAdapter from '../adapter/adapter';
+import agreementsAdapter from '../adapter/adapterAgreements';
 
 const apiAgreements = import.meta.env.VITE_API_AGREEMENTS;
 const apiAgreement = import.meta.env.VITE_API_AGREEMENT;
