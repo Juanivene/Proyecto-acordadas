@@ -26,19 +26,20 @@ const Body = () => {
   const dispatch = useDispatch();
 
   const handleNext = () => {
-    if (dataNow.data.totalPages === index + 1) {
+    if (dataNow.data.totalPages === index) {
       return;
     }
+    const newIndex = index + 1;
     dispatch(incrementIndex());
-
-    dispatch(fetchApi({ filters: agreementsFilters, index }));
+    dispatch(fetchApi({ filters: agreementsFilters, index: newIndex }));
   };
   const handleBack = () => {
     if (index === 0) {
       return;
     }
+    const newIndex = index - 1;
     dispatch(decrementIndex());
-    dispatch(fetchApi({ filters: agreementsFilters, index }));
+    dispatch(fetchApi({ filters: agreementsFilters, index: newIndex }));
   };
   return (
     <Container>

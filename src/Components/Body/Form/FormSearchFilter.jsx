@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,6 +9,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 
 import {
   fetchApi,
+  incrementIndex,
   resetDataNow,
   resetError,
   setAgreementsFilters,
@@ -30,6 +31,7 @@ const FormSearchFilter = () => {
     reset,
   } = useForm();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const { index } = useSelector((state) => state.getAgreementsFilters);
 
   const dispatch = useDispatch();
 
@@ -85,8 +87,8 @@ const FormSearchFilter = () => {
       data.startDate = dayjs(data.startDate).format('YYYY-MM-DD');
       data.endDate = dayjs(data.endDate).format('YYYY-MM-DD');
     }
-
-    dispatch(fetchApi({ filters: data, index: 0 }));
+    dispatch(incrementIndex());
+    dispatch(fetchApi({ filters: data, index }));
     dispatch(setAgreementsFilters(data));
     return true;
   };
