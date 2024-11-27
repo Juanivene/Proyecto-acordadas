@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { Visibility } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
@@ -21,14 +21,14 @@ import CustomizedDialog from '../Modal/CustomizedDialogs';
 const TableAgreements = () => {
   const { isOpen } = useSelector((state) => state.modal);
   const { dataNow } = useSelector((state) => state.getAgreementsFilters);
+  const [, setSearchParams] = useSearchParams();
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const handleClick = (id) => {
-    const params = new URLSearchParams(window.location.search);
-    params.set('acordada', id); // Asigna el valor del parámetro
-    navigate(`?${params.toString()}`); // Navega con los nuevos parámetros
+    setSearchParams({ acordada: id });
     dispatch(openModal());
   };
+
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
