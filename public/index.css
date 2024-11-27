@@ -2,8 +2,8 @@
 
 :root {
   --high-contrast-color: #000000;
-  --high-contrast-color-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
-    1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+  --high-contrast-color-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff,
+    0 -2px #fff, 1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
   --font-family: 'Nunito', Roboto, sans-serif;
 }
 
