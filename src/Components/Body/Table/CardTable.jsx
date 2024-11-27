@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
 
@@ -10,16 +10,13 @@ import PropTypes from 'prop-types';
 
 const CardTable = (props) => {
   const { a, id } = props;
+  const [, setSearchParams] = useSearchParams();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const handleClick = () => {
-    const params = new URLSearchParams(window.location.search);
-    params.set('acordada', id); // Asigna el valor del parámetro
-    navigate(`?${params.toString()}`); // Navega con los nuevos parámetros
+    setSearchParams({ acordada: id });
     dispatch(openModal());
   };
-
   return (
     <Card
       onClick={() => handleClick()}

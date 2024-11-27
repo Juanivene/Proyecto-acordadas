@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Print, Share } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -36,13 +36,13 @@ const StaticModal = () => {
   const [open, setOpen] = useState(true);
   const [parsedText, setParsedText] = useState(null);
   const [transforming, setTransforming] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const params = new URLSearchParams(window.location.search);
-  const idAgreement = params.get('acordada');
+  const idAgreement = searchParams.get('acordada');
 
   useEffect(() => {
     dispatch(fetchAgreement(idAgreement));
@@ -53,7 +53,6 @@ const StaticModal = () => {
   const { agreementsFilters } = useSelector(
     (state) => state.getAgreementsFilters
   );
-
   useEffect(() => {
     const transformRtf = async () => {
       if (dataNow?.data?.text) {
@@ -77,8 +76,9 @@ const StaticModal = () => {
   }, [dataNow, agreementsFilters.text]);
 
   const handleClose = () => {
-    setOpen(false); // Para cerrar el modal si es necesario
+    setOpen(false);
     dispatch(closeModal());
+    setSearchParams({});
     navigate(`${location.pathname}`, { replace: true });
   };
 
