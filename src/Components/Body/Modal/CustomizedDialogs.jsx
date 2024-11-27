@@ -42,8 +42,7 @@ const StaticModal = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const params = searchParams;
-  const idAgreement = params.get('acordada');
+  const idAgreement = searchParams.get('acordada');
 
   useEffect(() => {
     dispatch(fetchAgreement(idAgreement));
